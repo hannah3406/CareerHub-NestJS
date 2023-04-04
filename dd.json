@@ -1,0 +1,871 @@
+{
+  "model_status": null,
+  "links": {
+    "prev": null,
+    "next": "/api/v4/jobs?country=kr&tag_type_ids=518&locations=all&years=-1&limit=20&offset=20&job_sort=company.response_rate_order"
+  },
+  "is_callable_external_job": false,
+  "data_model": null,
+  "data": [
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 18449,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc774\uc5d0\uc2a4\uc774"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/18449/slogvkmlireni9n0__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/18449/slogvkmlireni9n0__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 152643,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.d2a076d7.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.d2a076d7.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uacbd\uae30" },
+      "matching_score": null,
+      "position": "\uae30\uc220\uc5f0\uad6c\uc18c \ubc31\uc5d4\ub4dc \uac1c\ubc1c\uc790",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 660 },
+        { "parent_id": 518, "id": 873 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 39626,
+        "industry_name": "\ud310\ub9e4, \uc720\ud1b5",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc628\ucc44\ub110"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/39626/q3yeohr58zxaugjp__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/39626/q3yeohr58zxaugjp__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 152617,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.67e96fe2.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.67e96fe2.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "\ubc31\uc5d4\ub4dc \uac1c\ubc1c\uc790 (PHP)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 873 },
+        { "parent_id": 518, "id": 893 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 11642,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc81c\ub85c\uc5d1\uc2a4\ud50c\ub85c\uc6b0"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/11642/vvtm3wrf2961mohv__1080_790.png",
+        "thumb": "https://static.wanted.co.kr/images/company/11642/vvtm3wrf2961mohv__400_400.png"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 152584,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.b5652cfd.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.b5652cfd.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "IOS \uac1c\ubc1c\uc790 \ucc44\uc6a9\ud569\ub2c8\ub2e4.",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 678 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 28251,
+        "industry_name": "\uc608\uc220, \uc2a4\ud3ec\uce20, \uc5ec\uac00",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc704\ud53c\ud06c"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/28251/2kfud9iufvk322yw__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/28251/2kfud9iufvk322yw__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 152484,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.fce29323.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.fce29323.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uacbd\uae30" },
+      "matching_score": null,
+      "position": "IT \uc2dc\uc2a4\ud15c \uc5d4\uc9c0\ub2c8\uc5b4",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 671 },
+        { "parent_id": 518, "id": 672 },
+        { "parent_id": 518, "id": 1026 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 7067,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc528\uc564\ud14c\ud06c"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/7067/oxnlfi6z23wx3kdw__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/7067/oxnlfi6z23wx3kdw__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 152324,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.ae512cc7.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.ae512cc7.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "[\uc11c\uc6b8] \ubc31\uc5d4\ub4dc \uac1c\ubc1c\uc790 (5\ub144\uc774\uc0c1)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 895 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 131,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc2a4\ucf08\ud130\ub7a9\uc2a4"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/131/zlnythvhfobleo2g__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/131/zlnythvhfobleo2g__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-07",
+      "like_count": 0,
+      "id": 152244,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.b2c46fdd.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.b2c46fdd.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "Site Engineer",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 1026 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 31632,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ud55c\uad6d\ud574\uc591\uae30\uc0c1\uae30\uc220"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/31632/fztuwbtsydpj3n5e__1080_790.png",
+        "thumb": "https://static.wanted.co.kr/images/company/31632/fztuwbtsydpj3n5e__400_400.png"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 151849,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.e0784705.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.e0784705.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "Java \uac1c\ubc1c\uc790(3\ub144 \uc774\uc0c1)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 660 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 8639,
+        "industry_name": "\uae30\ud0c0 \uc11c\ube44\uc2a4\uc5c5",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ud544\uc6e8\uc774"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/8639/kp7vncmlj8m4ycxs__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/8639/kp7vncmlj8m4ycxs__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 1,
+      "id": 151468,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.8fbbb9fb.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.8fbbb9fb.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "Backend Developer",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 893 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 34979,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc624\ud37c\uc2a4\uc5e0"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/34979/k6i6umuqsspsktcb__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/34979/k6i6umuqsspsktcb__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 3,
+      "id": 151310,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.778a3ac4.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.778a3ac4.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uacbd\uae30" },
+      "matching_score": null,
+      "position": "\uc548\ub4dc\ub85c\uc774\ub4dc \uac1c\ubc1c\uc790(\uc2e0\uc785~3\ub144)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 677 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 39772,
+        "industry_name": "\uc81c\uc870",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ubc14\ud22c\uc7bc"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/39772/rpwal5aijfpnmn54__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/39772/rpwal5aijfpnmn54__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-30",
+      "like_count": 0,
+      "id": 151277,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.73bf99b6.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.73bf99b6.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\ub300\uc804" },
+      "matching_score": null,
+      "position": "S/W \uac1c\ubc1c  \uc5f0\uad6c\uc6d0  (\uc2e0\uc785)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 900 },
+        { "parent_id": 518, "id": 10110 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 39772,
+        "industry_name": "\uc81c\uc870",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ubc14\ud22c\uc7bc"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/39772/rpwal5aijfpnmn54__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/39772/rpwal5aijfpnmn54__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-30",
+      "like_count": 0,
+      "id": 151274,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.73bf99b6.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.73bf99b6.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\ub300\uc804" },
+      "matching_score": null,
+      "position": "S/W \uac1c\ubc1c \uc5f0\uad6c\uc6d0 (2\ub144 \uc774\uc0c1)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 900 },
+        { "parent_id": 518, "id": 10110 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 75,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc2a4\ud3ec\uce74"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/75/xcgmhpoaxrfrea1c__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/75/xcgmhpoaxrfrea1c__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 1,
+      "id": 151057,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.1ea3dcc3.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.1ea3dcc3.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "\ub370\uc774\ud130 \ubd84\uc11d\uac00",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 655 },
+        { "parent_id": 518, "id": 1024 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 5821,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc11c\ubc0b\ucf54\ud37c\ub808\uc774\uc158"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/5821/e162mnkzotucvaju__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/5821/e162mnkzotucvaju__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-30",
+      "like_count": 0,
+      "id": 151043,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.cf987bfd.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.cf987bfd.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uacbd\uae30" },
+      "matching_score": null,
+      "position": "\ubc31\uc5d4\ub4dc \uac1c\ubc1c",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 660 },
+        { "parent_id": 518, "id": 872 },
+        { "parent_id": 518, "id": 873 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 21074,
+        "industry_name": "\uae08\uc735",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ubca0\uc2a4\ud2b8\ud540"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/21074/wzildvxdg5fnjhpz__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/21074/wzildvxdg5fnjhpz__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 150998,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.87c7da42.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.87c7da42.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "\uc548\ub4dc\ub85c\uc774\ub4dc(AOS)\uac1c\ubc1c\uc790",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 677 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 9726,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc544\uc774\ud3ec\ud2b8\ud3f4\ub9ac\uc624"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/9726/m3hd3qviujjacph0__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/9726/m3hd3qviujjacph0__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 150927,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.816e6c5c.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.816e6c5c.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "QA \uc5d4\uc9c0\ub2c8\uc5b4",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 676 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 41356,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ud50c\ub77c\ub124\ud0c0\ub9ac\uc6c0\ub7a9\uc2a4\ucf54\ub9ac\uc544"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/41356/onvpf6n13rgggigt__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/41356/onvpf6n13rgggigt__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 150856,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.1ff6305d.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.1ff6305d.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "\ube14\ub85d\uccb4\uc778 SDK \uc5d4\uc9c0\ub2c8\uc5b4(2\ub144 \uc774\uc0c1)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 661 },
+        { "parent_id": 518, "id": 1027 },
+        { "parent_id": 518, "id": 10110 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 21539,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc624\uc5e0\ud2f0\uc544\uc774\ucf54\ub9ac\uc544"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/21539/toh64lqol001qgwi__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/21539/toh64lqol001qgwi__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-02",
+      "like_count": 1,
+      "id": 150821,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.4f8a0d81.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.4f8a0d81.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "ASP.NET \uc911\uae09\uac1c\ubc1c\uc790",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 661 },
+        { "parent_id": 518, "id": 872 },
+        { "parent_id": 518, "id": 873 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 26114,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ub9e4\uc2a4\uc5b4\ub2f5\uc158"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/26114/luaqh0a4pcrobtm9__1080_790.png",
+        "thumb": "https://static.wanted.co.kr/images/company/26114/luaqh0a4pcrobtm9__400_400.png"
+      },
+      "compare_country": true,
+      "due_time": "2023-04-08",
+      "like_count": 0,
+      "id": 150438,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.084ba1ee.png",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.084ba1ee.png"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "\ubc31\uc564\ub4dc \uc5d4\uc9c0\ub2c8\uc5b4 (Back-end Engineer)",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 872 },
+        { "parent_id": 518, "id": 895 },
+        { "parent_id": 518, "id": 1027 }
+      ]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 38211,
+        "industry_name": "\uae30\ud0c0 \uc11c\ube44\uc2a4\uc5c5",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\ucf58\uc13c\ud2b8\ub9ad\uc2a4\uc11c\ube44\uc2a4\ucf54\ub9ac\uc544CRM"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/38211/sbkyj0zrauorve8h__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/38211/sbkyj0zrauorve8h__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 150365,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.c5412489.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.c5412489.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "[Concentrix] O365 \uc5d4\uc9c0\ub2c8\uc5b4",
+      "hidden": false,
+      "score": null,
+      "category_tags": [{ "parent_id": 518, "id": 1026 }]
+    },
+    {
+      "status": "active",
+      "reward": {
+        "formatted_total": "1,000,000\uc6d0",
+        "formatted_recommender": "500,000\uc6d0",
+        "formatted_recommendee": "500,000\uc6d0"
+      },
+      "is_like": false,
+      "is_bookmark": false,
+      "company": {
+        "id": 23433,
+        "industry_name": "IT, \ucee8\ud150\uce20",
+        "application_response_stats": {
+          "avg_rate": 100.0,
+          "level": "very_high",
+          "delayed_count": 0,
+          "avg_day": null,
+          "remained_count": 0,
+          "type": "applied_reply_done"
+        },
+        "name": "\uc820\ub2e4\uce74\ub514\uc5b8"
+      },
+      "title_img": {
+        "origin": "https://static.wanted.co.kr/images/company/23433/tpzu5avbafw5tkxg__1080_790.jpg",
+        "thumb": "https://static.wanted.co.kr/images/company/23433/tpzu5avbafw5tkxg__400_400.jpg"
+      },
+      "compare_country": true,
+      "due_time": null,
+      "like_count": 0,
+      "id": 150299,
+      "logo_img": {
+        "origin": "https://static.wanted.co.kr/images/wdes/0_4.2ab35503.jpg",
+        "thumb": "https://static.wanted.co.kr/images/wdes/0_5.2ab35503.jpg"
+      },
+      "address": { "country": "\ud55c\uad6d", "location": "\uc11c\uc6b8" },
+      "matching_score": null,
+      "position": "Full-Stack \uac1c\ubc1c\uc790",
+      "hidden": false,
+      "score": null,
+      "category_tags": [
+        { "parent_id": 518, "id": 669 },
+        { "parent_id": 518, "id": 873 },
+        { "parent_id": 518, "id": 895 }
+      ]
+    }
+  ],
+  "is_score": true
+}
