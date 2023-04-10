@@ -1,11 +1,10 @@
-import { Module, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { WebCrawlingModule } from './web-crawling/web-crawling.module';
-import * as cors from 'cors';
 
 @Module({
   imports: [
@@ -20,8 +19,4 @@ import * as cors from 'cors';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  configure(consumer) {
-    consumer.apply(cors()).forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
-}
+export class AppModule {}
