@@ -11,7 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors({});
+  app.enableCors({
+    origin: 'https://careerhub-front.netlify.app',
+  });
   const config = new BaseAPIDocument().initializeOptions();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
