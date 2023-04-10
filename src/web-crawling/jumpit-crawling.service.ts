@@ -18,11 +18,11 @@ export class JumpitCrawlingService {
   ) {}
 
   async crawl() {
-    // const browser = await puppeteer.launch({
-    //   headless: false,
-    //   waitForInitialPage: true,
-    // });
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      waitForInitialPage: true,
+    });
+    // const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     await Promise.all([page.waitForNavigation(), page.goto(this.url)]);
@@ -49,12 +49,13 @@ export class JumpitCrawlingService {
           page.waitForNavigation(),
           page.goto(url, { waitUntil: 'networkidle0' }),
         ]);
+        const type = 'jumpit';
         // title
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(1)> h1',
+          'main > div > div:nth-child(2) > div > section:nth-child(1)> h1',
         );
         const _title = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(1)> h1',
+          'main > div > div:nth-child(2) > div > section:nth-child(1)> h1',
         );
         const title = _title
           ? await _title
@@ -64,10 +65,10 @@ export class JumpitCrawlingService {
 
         // company
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(1) > div > a',
+          'main > div > div:nth-child(2) > div > section:nth-child(1) > div > a',
         );
         const _company = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(1) > div > a',
+          'main > div > div:nth-child(2) > div > section:nth-child(1) > div > a',
         );
         const company = _company
           ? await _company
@@ -77,10 +78,10 @@ export class JumpitCrawlingService {
 
         // majorTasks
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) > dl:nth-of-type(2) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(2) > dd > pre',
         );
         const _majorTasks = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) > dl:nth-of-type(2) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(2) > dd > pre',
         );
         const majorTasks = _majorTasks
           ? await _majorTasks
@@ -90,10 +91,10 @@ export class JumpitCrawlingService {
 
         // experience
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) > dl:nth-of-type(3) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(3) > dd > pre',
         );
         const _experience = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) > dl:nth-of-type(3) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(3) > dd > pre',
         );
         const experience = _experience
           ? await _experience
@@ -103,10 +104,10 @@ export class JumpitCrawlingService {
 
         // preferential
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(4) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(4) > dd > pre',
         );
         const _preferential = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(4) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(4) > dd > pre',
         );
         const preferential = _preferential
           ? await _preferential
@@ -116,10 +117,10 @@ export class JumpitCrawlingService {
 
         // welfare
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(5) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(5) > dd > pre',
         );
         const _welfare = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(5) > dd > pre',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(5) > dd > pre',
         );
         const welfare = _welfare
           ? await _welfare
@@ -128,11 +129,11 @@ export class JumpitCrawlingService {
           : '';
         // skill
         await page.waitForSelector(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(1) > dd > pre > div',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(1) > dd > pre > div',
         );
 
         const skills = await page.$$(
-          'main > div > div:nth-child(1) > div > section:nth-child(2) >  dl:nth-of-type(1) > dd > pre > div',
+          'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(1) > dd > pre > div',
         );
         const skill = [];
         for (let k = 1; k < skills.length; k++) {
@@ -146,10 +147,10 @@ export class JumpitCrawlingService {
         }
         // location
         await page.waitForSelector(
-          'main > div > div:nth-child(1)> div > section:nth-child(3) > dl:nth-child(5) > dd > ul > li',
+          'main > div > div:nth-child(2)> div > section:nth-child(3) > dl:nth-child(5) > dd > ul > li',
         );
         const _location = await page.$(
-          'main > div > div:nth-child(1) > div > section:nth-child(3) > dl:nth-child(5) > dd > ul > li',
+          'main > div > div:nth-child(2) > div > section:nth-child(3) > dl:nth-child(5) > dd > ul > li',
         );
         const location = _location
           ? await _location
@@ -181,14 +182,29 @@ export class JumpitCrawlingService {
         //   );
         // }
 
+        // closingdate
+        await page.waitForSelector(
+          'main > div > div:nth-child(2)> div > section:nth-child(3) > dl:nth-child(4) > dd ',
+        );
+        const _closingdate = await page.$(
+          'main > div > div:nth-child(2)> div > section:nth-child(3) > dl:nth-child(4) > dd ',
+        );
+        const closingdate = _closingdate
+          ? await _closingdate
+              .getProperty('innerText')
+              .then((el) => el.jsonValue() as unknown as string)
+          : '';
+
         const webcrawlingData = {
           url,
+          type,
           title,
           majorTasks,
           experience,
           preferential,
           welfare,
           location,
+          closingdate,
           // locationDetail,
           company,
           skill,

@@ -1,4 +1,4 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Model } from 'mongoose';
@@ -19,19 +19,19 @@ export class WantedCrawlingService {
   ) {}
 
   async crawl() {
-    // const browser = await puppeteer.launch({
-    //   headless: false,
-    //   waitForInitialPage: true,
-    // });
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      waitForInitialPage: true,
+    });
+    // const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     await Promise.all([page.waitForNavigation(), page.goto(this.url)]);
-
+    const type = 'wanted';
     const articles = await page.$$(
       '#__next > div.JobList_cn__t_THp > div > div > div.List_List_container__JnQMS > ul > li',
     );
-
+    console.log(type);
     for (let i = 0; i < articles.length; i++) {
       const article = articles[i];
       try {
@@ -137,62 +137,87 @@ export class WantedCrawlingService {
           : '';
 
         // skill
-        await page.waitForSelector(
-          'div.JobDescription_JobDescription_skill_wrapper__9EdFE > div.SkillItem_SkillItem__E2WtM',
-        );
-
-        const skills = await page.$$(
-          'div.JobDescription_JobDescription_skill_wrapper__9EdFE > div.SkillItem_SkillItem__E2WtM',
-        );
         const skill = [];
-        for (let k = 1; k < skills.length; k++) {
-          const _skill = skills[k];
-          const sk = _skill
-            ? await _skill
-                .getProperty('innerText')
-                .then((el) => el.jsonValue() as unknown as string)
-            : '';
-          skill.push(sk);
+        try {
+          await page.waitForSelector(
+            'div.JobDescription_JobDescription_skill_wrapper__9EdFE > div.SkillItem_SkillItem__E2WtM',
+          );
+
+          const skills = await page.$$(
+            'div.JobDescription_JobDescription_skill_wrapper__9EdFE > div.SkillItem_SkillItem__E2WtM',
+          );
+          for (let k = 1; k < skills.length; k++) {
+            const _skill = skills[k];
+            const sk = _skill
+              ? await _skill
+                  .getProperty('innerText')
+                  .then((el) => el.jsonValue() as unknown as string)
+              : '';
+            skill.push(sk);
+          }
+        } catch (error) {
+          console.error('skill 요소 잡지 못함:', error);
         }
 
         // location
-        await page.waitForSelector(
-          'section.JobHeader_className__HttDA > div.JobHeader_mobileLocationContainer__DyxUQ',
-        );
-        const _location = await page.$(
-          'section.JobHeader_className__HttDA > div.JobHeader_mobileLocationContainer__DyxUQ',
-        );
-        const location = _location
-          ? await _location
-              .getProperty('innerText')
-              .then((el) => el.jsonValue() as unknown as string)
-          : '';
+        let location = null;
+        try {
+          await page.waitForSelector(
+            'section.JobHeader_className__HttDA > div.JobHeader_mobileLocationContainer__DyxUQ',
+          );
+          const _location = await page.$(
+            'section.JobHeader_className__HttDA > div.JobHeader_mobileLocationContainer__DyxUQ',
+          );
+          location = _location
+            ? await _location
+                .getProperty('innerText')
+                .then((el) => el.jsonValue() as unknown as string)
+            : '';
+        } catch (error) {
+          console.error('location 요소 잡지 못함:', error);
+        }
+
+        // closingdate
+        let closingdate = null;
+        try {
+          await page.waitForSelector(
+            'section.JobWorkPlace_className__ra6rp > div:nth-child(1) > span.body',
+          );
+          const _closingdate = await page.$(
+            'section.JobWorkPlace_className__ra6rp > div:nth-child(1) > span.body',
+          );
+          // console.log(_closingdate, '_closingdate');
+          closingdate = _closingdate
+            ? await _closingdate
+                .getProperty('innerText')
+                .then((el) => el.jsonValue() as unknown as string)
+            : '';
+        } catch (error) {
+          console.error('closingdate 요소 잡지 못함:', error);
+        }
 
         // locationDetail
-        // let locationDetail = '';
-        // try {
-        //   await page.waitForSelector(
-        //     'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
-        //   );
-        //   const _locationDetail = await page.$(
-        //     'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
-        //   );
-        //   console.log(_locationDetail, '_locationDetail');
-        //   locationDetail = _locationDetail
-        //     ? await _locationDetail
-        //         .getProperty('innerText')
-        //         .then((el) => el.jsonValue() as unknown as string)
-        //     : ''; // 에러가 발생하면 빈 문자열을 할당
-        // } catch (error) {
-        //   console.error(
-        //     `================근무지역!!!!!!!!======= ${i + 1}: ${
-        //       error.message
-        //     }`,
-        //   );
-        // }
+        let locationDetail = null;
+        try {
+          await page.waitForSelector(
+            'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
+          );
+          const _locationDetail = await page.$(
+            'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
+          );
+          console.log(_locationDetail, '_locationDetail');
+          locationDetail = _locationDetail
+            ? await _locationDetail
+                .getProperty('innerText')
+                .then((el) => el.jsonValue() as unknown as string)
+            : '';
+        } catch (error) {
+          console.error('locationDetail 요소 잡지 못함:', error);
+        }
 
         const webcrawlingData = {
           url,
+          type,
           title,
           description,
           majorTasks,
@@ -200,7 +225,8 @@ export class WantedCrawlingService {
           preferential,
           welfare,
           location,
-          // locationDetail,
+          closingdate,
+          locationDetail,
           company,
           skill,
         };
@@ -231,7 +257,11 @@ export class WantedCrawlingService {
     const limit = 10;
     const skip = (page - 1) * limit;
 
-    const query = this.webCrawlingModel.find().skip(skip).limit(limit);
+    const query = this.webCrawlingModel
+      .find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
     const result = await query.exec();
 
     return result;

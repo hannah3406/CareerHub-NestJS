@@ -82,6 +82,19 @@ export class WebCrawling {
   })
   @IsNotEmpty()
   company: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  })
+  @IsNotEmpty()
+  type: string;
+
+  @Prop({
+    type: String,
+  })
+  @IsNotEmpty()
+  closingdate: string;
 }
 
 export const WebCrawlingSchema = SchemaFactory.createForClass(WebCrawling);
