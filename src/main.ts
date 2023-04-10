@@ -8,10 +8,20 @@ import { BaseAPIDocument } from './swagger.document';
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
-
+  app.enableCors({
+    origin: 'https://careerhub-front.netlify.app',
+    credentials: true,
+    allowedHeaders: [
+      'access-control-allow-origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  });
   const config = new BaseAPIDocument().initializeOptions();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
