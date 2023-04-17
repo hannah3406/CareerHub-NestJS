@@ -35,7 +35,6 @@ export class AuthController {
     @Body() data: LoginRequestDto,
   ) {
     const user = await this.userRepository.findUserByEmail(data.email);
-    console.log(user, 'user');
     const isRefreshEmpty = !user.refreshToken || user.refreshToken === null;
     return this.authService.login(data, res, isRefreshEmpty);
   }

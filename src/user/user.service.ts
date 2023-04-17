@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 
 @Injectable()
@@ -20,6 +21,16 @@ export class UserService {
   async getProfile(email: string) {
     try {
       const result = await this.userRepository.findProfileByEmail(email);
+      console.log('result', result);
+      return result;
+    } catch (e) {
+      console.log(e, 'findProfileByEmail 찾기 실패');
+    }
+  }
+  async updateUser(_id: string, userData: UpdateUserDto) {
+    const { type, value } = userData;
+    try {
+      const result = await this.userRepository.updateById(_id, type, value);
       return result;
     } catch (e) {}
   }

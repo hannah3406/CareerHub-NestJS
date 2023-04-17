@@ -1,10 +1,21 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { ApiOperation } from '@nestjs/swagger';
 import { JwtAccessGuard } from 'src/auth/guards/access.guard';
 import { User } from './schema/user.schema';
 import { UserService } from './user.service';
 import { AuthService } from 'src/auth/auth.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 interface reqUser extends Request {
   user: User;
 }
@@ -21,6 +32,13 @@ export class UserController {
   profile(@Req() req: reqUser) {
     console.log(req.user, 'req.user');
     return this.userService.getProfile(req.user.email);
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: '프로필 업데이트' })
+  @Patch('profile/:id')
+  async updatetUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
+    return this.userService.updateUser(id, user);
   }
 
   @ApiOperation({ summary: '회원가입' })

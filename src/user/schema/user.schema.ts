@@ -36,6 +36,9 @@ export class User {
   @IsNotEmpty()
   password: string;
 
+  @Prop({})
+  profileimg: string;
+
   @Prop({ nullable: true })
   @Exclude()
   refreshToken?: string;

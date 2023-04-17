@@ -13,7 +13,24 @@ export class UserRepository {
   async findUserByEmail(email: string): Promise<User | null> {
     return await this.userModel.findOne({ email });
   }
+  async updateById(
+    _id: string,
+    type: string,
+    value: string,
+  ): Promise<UpdateWriteOpResult> {
+    try {
+      return await this.userModel.updateOne(
+        { _id },
+        { $set: { [type]: value } },
+      );
+    } catch (e) {
+      console.log('사용자 업데이트에 실패했습니다', e.message);
+      throw e;
+    }
+    // return await this.userModel.findOne({ email });
+  }
   async findProfileByEmail(email: string): Promise<User | null> {
+    console.log(email, '===============================');
     return await this.userModel
       .findOne({ email })
       .select('-password')
@@ -24,7 +41,7 @@ export class UserRepository {
     return !!result;
   }
   async create(userData: CreateUserDto): Promise<User> {
-    return await this.userModel.create(userData);
+    return await this.userModel.create({ ...userData, profileimg: 0 });
   }
   async updateRefreshToken(
     refreshToken: string,

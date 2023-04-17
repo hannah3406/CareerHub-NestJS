@@ -11,7 +11,7 @@ export class WantedCrawlingService {
   private readonly url: string =
     'https://www.wanted.co.kr/wdlist/518?country=kr&job_sort=company.response_rate_order&years=-1&locations=all';
 
-  CACHED = {};
+  CACHED = [];
 
   constructor(
     @InjectModel(WebCrawling.name)
@@ -20,8 +20,9 @@ export class WantedCrawlingService {
 
   async crawl() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       waitForInitialPage: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     // const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -40,11 +41,11 @@ export class WantedCrawlingService {
           .$('a')
           .then((a) => a.getProperty('href'))
           .then((href) => href.jsonValue());
-        if (this.CACHED[url]) {
+        if (this.CACHED.includes(url)) {
           console.log(this.CACHED, 'wanted=========true');
           continue;
         }
-        this.CACHED[url] = true;
+        this.CACHED.push(url);
 
         const page = await browser.newPage();
         await Promise.all([
@@ -91,11 +92,12 @@ export class WantedCrawlingService {
         const _majorTasks = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(2) > span',
         );
-        const majorTasks = _majorTasks
+        const maj = _majorTasks
           ? await _majorTasks
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        const majorTasks = maj.replace(/\n\n/gi, '\n');
 
         // experience
         await page.waitForSelector(
@@ -104,12 +106,12 @@ export class WantedCrawlingService {
         const _experience = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(3) > span',
         );
-        const experience = _experience
+        const exp = _experience
           ? await _experience
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-
+        const experience = exp.replace(/\n\n/gi, '\n');
         // preferential
         await page.waitForSelector(
           'section.JobDescription_JobDescription__VWfcb',
@@ -117,12 +119,12 @@ export class WantedCrawlingService {
         const _preferential = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(4) > span',
         );
-        const preferential = _preferential
+        const pre = _preferential
           ? await _preferential
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-
+        const preferential = pre.replace(/\n\n/gi, '\n');
         // welfare
         await page.waitForSelector(
           'section.JobDescription_JobDescription__VWfcb',
@@ -130,17 +132,18 @@ export class WantedCrawlingService {
         const _welfare = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(5) > span',
         );
-        const welfare = _welfare
+        const wel = _welfare
           ? await _welfare
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-
+        const welfare = wel.replace(/\n\n/gi, '\n');
         // skill
         const skill = [];
         try {
           await page.waitForSelector(
             'div.JobDescription_JobDescription_skill_wrapper__9EdFE > div.SkillItem_SkillItem__E2WtM',
+            { timeout: 1000 },
           );
 
           const skills = await page.$$(
@@ -250,20 +253,6 @@ export class WantedCrawlingService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async clearCache() {
-    this.CACHED = {};
-  }
-
-  async getList(page: number): Promise<userDocument[]> {
-    const limit = 10;
-    const skip = (page - 1) * limit;
-
-    const query = this.webCrawlingModel
-      .find()
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
-    const result = await query.exec();
-
-    return result;
+    this.CACHED = [];
   }
 }

@@ -5,6 +5,7 @@ import { WebCrawlingController } from './web-crawling.controller';
 import { ScheduleModule } from '@nestjs/schedule';
 import { JumpitCrawlingService } from './jumpit-crawling.service';
 import { WantedCrawlingService } from './wanted-crawling.service';
+import { WebCrawlingService } from './web-crawling.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { WantedCrawlingService } from './wanted-crawling.service';
     ]),
   ],
   controllers: [WebCrawlingController],
-  providers: [JumpitCrawlingService, WantedCrawlingService],
+  providers: [JumpitCrawlingService, WantedCrawlingService, WebCrawlingService],
 })
 export class WebCrawlingModule {}

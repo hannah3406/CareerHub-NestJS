@@ -7,9 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { IsEmail } from 'class-validator';
 import { Response } from 'express';
-import { ObjectId } from 'mongoose';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserRepository } from 'src/user/user.repository';
 import { UserService } from 'src/user/user.service';
@@ -96,17 +94,13 @@ export class AuthService {
       secret: jwtConstants.ACCESS_TOKEN,
       expiresIn: jwtConstants.ACCESS_EXPIRESIN,
     });
-    console.log(payload, 'payload');
-    console.log(token);
 
     return token;
   }
   async login(data: LoginRequestDto, res: Response, isRefreshEmpty: boolean) {
     const { email } = data;
-    console.log(email, 'user.email');
     const user = await this.userRepository.findUserByEmail(email);
     const payload = { email, sub: user.name };
-
     const accessToken = await this.getAceessToken(payload);
     if (isRefreshEmpty) {
       await this.getRefreshToken(payload, res);

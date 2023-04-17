@@ -10,7 +10,7 @@ import { WebCrawling } from './schema/web-crawling.schema';
 export class JumpitCrawlingService {
   private readonly url: string = 'https://www.jumpit.co.kr/positions';
 
-  CACHED = {};
+  CACHED = [];
 
   constructor(
     @InjectModel(WebCrawling.name)
@@ -26,7 +26,7 @@ export class JumpitCrawlingService {
     const page = await browser.newPage();
 
     await Promise.all([page.waitForNavigation(), page.goto(this.url)]);
-
+    const type = 'jumpit';
     const articles = await page.$$(
       'main > div > div:nth-of-type(1) > section > div',
     );
@@ -38,18 +38,18 @@ export class JumpitCrawlingService {
           .$('a')
           .then((a) => a.getProperty('href'))
           .then((href) => href.jsonValue());
-        if (this.CACHED[url]) {
-          console.log(this.CACHED, 'jumpit=========true');
+        if (this.CACHED.includes(url)) {
+          console.log('jumpit=========true');
           continue;
         }
-        this.CACHED[url] = true;
+        this.CACHED.push(url);
 
         const page = await browser.newPage();
         await Promise.all([
           page.waitForNavigation(),
           page.goto(url, { waitUntil: 'networkidle0' }),
         ]);
-        const type = 'jumpit';
+
         // title
         await page.waitForSelector(
           'main > div > div:nth-child(2) > div > section:nth-child(1)> h1',
@@ -83,11 +83,12 @@ export class JumpitCrawlingService {
         const _majorTasks = await page.$(
           'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(2) > dd > pre',
         );
-        const majorTasks = _majorTasks
+        const maj = _majorTasks
           ? await _majorTasks
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        const majorTasks = maj.replace(/\n\n/gi, '\n');
 
         // experience
         await page.waitForSelector(
@@ -96,11 +97,12 @@ export class JumpitCrawlingService {
         const _experience = await page.$(
           'main > div > div:nth-child(2) > div > section:nth-child(2) > dl:nth-of-type(3) > dd > pre',
         );
-        const experience = _experience
+        const exp = _experience
           ? await _experience
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        const experience = exp.replace(/\n\n/gi, '\n');
 
         // preferential
         await page.waitForSelector(
@@ -109,11 +111,12 @@ export class JumpitCrawlingService {
         const _preferential = await page.$(
           'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(4) > dd > pre',
         );
-        const preferential = _preferential
+        const pre = _preferential
           ? await _preferential
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        const preferential = pre.replace(/\n\n/gi, '\n');
 
         // welfare
         await page.waitForSelector(
@@ -122,11 +125,12 @@ export class JumpitCrawlingService {
         const _welfare = await page.$(
           'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(5) > dd > pre',
         );
-        const welfare = _welfare
+        const wel = _welfare
           ? await _welfare
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        const welfare = wel.replace(/\n\n/gi, '\n');
         // skill
         await page.waitForSelector(
           'main > div > div:nth-child(2) > div > section:nth-child(2) >  dl:nth-of-type(1) > dd > pre > div',
@@ -152,35 +156,13 @@ export class JumpitCrawlingService {
         const _location = await page.$(
           'main > div > div:nth-child(2) > div > section:nth-child(3) > dl:nth-child(5) > dd > ul > li',
         );
-        const location = _location
+        const lo = _location
           ? await _location
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-        location.replace('지도보기·주소복사', '');
 
-        // locationDetail
-        // let locationDetail = '';
-        // try {
-        //   await page.waitForSelector(
-        //     'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
-        //   );
-        //   const _locationDetail = await page.$(
-        //     'section.JobWorkPlace_className__ra6rp > div:nth-child(2) > span.body',
-        //   );
-        //   console.log(_locationDetail, '_locationDetail');
-        //   locationDetail = _locationDetail
-        //     ? await _locationDetail
-        //         .getProperty('innerText')
-        //         .then((el) => el.jsonValue() as unknown as string)
-        //     : ''; // 에러가 발생하면 빈 문자열을 할당
-        // } catch (error) {
-        //   console.error(
-        //     `================근무지역!!!!!!!!======= ${i + 1}: ${
-        //       error.message
-        //     }`,
-        //   );
-        // }
+        const location = lo.replace('\n\n지도보기·주소복사', '');
 
         // closingdate
         await page.waitForSelector(
@@ -194,7 +176,7 @@ export class JumpitCrawlingService {
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-
+        const locationDetail = null;
         const webcrawlingData = {
           url,
           type,
@@ -205,7 +187,7 @@ export class JumpitCrawlingService {
           welfare,
           location,
           closingdate,
-          // locationDetail,
+          locationDetail,
           company,
           skill,
         };
@@ -229,6 +211,6 @@ export class JumpitCrawlingService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async clearCache() {
-    this.CACHED = {};
+    this.CACHED = [];
   }
 }
