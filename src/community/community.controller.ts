@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { JwtAccessGuard } from 'src/auth/guards/access.guard';
 import { CommunityService } from './community.service';
 import { Community } from './schema/community.schema';
 

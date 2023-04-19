@@ -20,18 +20,19 @@ export class CommunityService {
     page?: number;
     keyword?: string;
     type?: string;
-  }): Promise<communityDocument[]> {
+  }): Promise<{ total: number; results: communityDocument[] }> {
     const { page, keyword, type } = queryString;
-
+    const filter = {};
     const limit = 10;
     const skip = (page - 1) * limit;
+
     const query = this.communityModel
       .find()
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
-    const result = await query.exec();
-    return result;
+    const total = await this.communityModel.find(filter).count();
+    const results = await query.exec();
+    return { total, results };
   }
 }

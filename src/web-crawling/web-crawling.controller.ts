@@ -15,6 +15,11 @@ export class WebCrawlingController {
   async getList(@Query() query) {
     return this.webService.getList(query);
   }
+
+  @Get('/getListCount')
+  async getListCount(@Query() query) {
+    return this.webService.getListCount(query);
+  }
   @Post('wanted')
   async wantedcrawling() {
     return this.wantedService.crawl();

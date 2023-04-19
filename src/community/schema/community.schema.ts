@@ -13,6 +13,7 @@ type positionArticle = {
   positionId: string;
   title: string;
   company: string;
+  url: string;
 };
 type userInfo = {
   userId: string;
@@ -42,7 +43,6 @@ export class Community {
   @Prop({
     type: Object,
   })
-  @IsNotEmpty()
   skill: object;
 
   @Prop({

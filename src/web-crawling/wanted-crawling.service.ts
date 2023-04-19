@@ -24,9 +24,12 @@ export class WantedCrawlingService {
       waitForInitialPage: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
+
     // const browser = await puppeteer.launch();
     const page = await browser.newPage();
-
+    // await page.setUserAgent(
+    //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+    // );
     await Promise.all([page.waitForNavigation(), page.goto(this.url)]);
     const type = 'wanted';
     const articles = await page.$$(
