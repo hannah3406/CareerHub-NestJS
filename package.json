@@ -50,6 +50,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "puppeteer": "^19.8.2",
+    "puppeteer-autoscroll-down": "^1.1.2",
     "react-i18next": "^12.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",

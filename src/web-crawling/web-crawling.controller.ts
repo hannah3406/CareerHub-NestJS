@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { JumpitCrawlingService } from './jumpit-crawling.service';
+import { TestCrawlingService } from './test-crawling.service';
 import { WantedCrawlingService } from './wanted-crawling.service';
 import { WebCrawlingService } from './web-crawling.service';
 
@@ -9,16 +10,12 @@ export class WebCrawlingController {
     private readonly webService: WebCrawlingService,
     private readonly wantedService: WantedCrawlingService,
     private readonly jumpitService: JumpitCrawlingService,
+    private readonly testService: TestCrawlingService,
   ) {}
 
   @Get('/getList')
   async getList(@Query() query) {
     return this.webService.getList(query);
-  }
-
-  @Get('/getListCount')
-  async getListCount(@Query() query) {
-    return this.webService.getListCount(query);
   }
   @Post('wanted')
   async wantedcrawling() {
@@ -27,5 +24,9 @@ export class WebCrawlingController {
   @Post('jumpit')
   async jumpitcrawling() {
     return this.jumpitService.crawl();
+  }
+  @Post('test')
+  async testcrawling() {
+    return this.testService.crawl();
   }
 }

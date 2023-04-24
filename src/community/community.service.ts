@@ -12,7 +12,6 @@ export class CommunityService {
   ) {}
 
   async createBoard(boardData: CreateBoardDto) {
-    console.log(boardData, '========');
     await this.communityModel.create({ ...boardData, like: 0 });
   }
 
@@ -22,16 +21,24 @@ export class CommunityService {
     type?: string;
   }): Promise<{ total: number; results: communityDocument[] }> {
     const { page, keyword, type } = queryString;
-    const filter = {};
+    let filter = {};
     const limit = 10;
     const skip = (page - 1) * limit;
-
+    if (type !== undefined) {
+      filter = { [type]: { $regex: new RegExp(`${keyword}`, 'i') } };
+    }
+    if (type === 'userName') {
+      filter = {
+        'userInfo.userName': { $regex: new RegExp(`${keyword}`, 'i') },
+      };
+    }
     const query = this.communityModel
-      .find()
+      .find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-    const total = await this.communityModel.find(filter).count();
+
+    const total = await this.communityModel.countDocuments(filter);
     const results = await query.exec();
     return { total, results };
   }

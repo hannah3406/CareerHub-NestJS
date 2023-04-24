@@ -42,37 +42,8 @@ export class WebCrawlingService {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-    const total = await this.webCrawlingModel.find(filter).count();
+    const total = await this.webCrawlingModel.countDocuments(filter);
     const results = await query.exec();
     return { total, results };
-  }
-  async getListCount(queryString: {
-    page?: number;
-    keyword?: string;
-    type?: string;
-  }): Promise<number> {
-    const { keyword, type } = queryString;
-    const contentsType = [
-      'description',
-      'majorTasks',
-      'experience',
-      'preferential',
-    ];
-    let filter = {};
-    if (type === 'contents') {
-      filter = contentsType.reduce(
-        (acc, type) => {
-          acc.$or.push({ [type]: { $regex: new RegExp(`${keyword}`, 'i') } });
-          return acc;
-        },
-        { $or: [] },
-      );
-    }
-    if (type !== 'contents' && type !== undefined) {
-      filter = { [type]: { $regex: new RegExp(`${keyword}`, 'i') } };
-    }
-    const total = await this.webCrawlingModel.find(filter).count();
-    if (total === 0) return undefined;
-    return total;
   }
 }

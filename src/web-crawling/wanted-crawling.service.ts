@@ -22,11 +22,20 @@ export class WantedCrawlingService {
     const browser = await puppeteer.launch({
       headless: false,
       waitForInitialPage: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: [
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
     });
+    // const browser = await puppeteer.launch({ headless: true });
 
     // const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    await page.setUserAgent(
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+    );
     // await page.setUserAgent(
     //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
     // );
@@ -55,8 +64,16 @@ export class WantedCrawlingService {
           page.waitForNavigation(),
           page.goto(url, { waitUntil: 'networkidle0' }),
         ]);
+        await page.setUserAgent(
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+        );
+        await page.focus('body');
+        console.log('body');
+        await page.click('body');
         // title
         await page.waitForSelector('section.JobHeader_className__HttDA > h2');
+        await page.click('section.JobHeader_className__HttDA > h2');
+        console.log('click');
         const _title = await page.$('section.JobHeader_className__HttDA > h2');
         const title = _title
           ? await _title
@@ -75,6 +92,7 @@ export class WantedCrawlingService {
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
+        await pageDown(page);
         // description
         await page.waitForSelector(
           'section.JobDescription_JobDescription__VWfcb',
@@ -259,3 +277,11 @@ export class WantedCrawlingService {
     this.CACHED = [];
   }
 }
+const pageDown = async (page) => {
+  const scrollHeight = 'document.body.scrollHeight';
+  const previousHeight = await page.evaluate(scrollHeight);
+  await page.evaluate(`window.scrollTo(0, ${scrollHeight})`);
+  await page.waitForFunction(`${scrollHeight} > ${previousHeight}`, {
+    timeout: 30000,
+  });
+};
