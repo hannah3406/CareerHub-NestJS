@@ -10,7 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
 import { User } from 'src/user/schema/user.schema';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { LogoutRequestDto } from './dto/logout-request.dto copy';
 import { Request, Response } from 'express';
@@ -20,6 +20,7 @@ import { UserRepository } from 'src/user/user.repository';
 export interface reqUser extends Request {
   user: User;
 }
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -54,8 +55,8 @@ export class AuthController {
   @Get('refresh')
   async refresh(@Req() req: reqUser, @Res() res: Response) {
     const user = req.user;
-    const { email, name } = user;
-    const payload = { email, sub: name };
+    const { email, _id } = user;
+    const payload = { email, id: _id.toString() };
     return this.authService.refresh(payload, res);
   }
 }

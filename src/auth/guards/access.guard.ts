@@ -31,7 +31,6 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
     const secretKey = jwtConstants.ACCESS_TOKEN;
     try {
       const decoded = this.jwtService.verify(token, { secret: secretKey });
-      console.log(token, 'decodeToken');
       this.userService.getByEmail(decoded['email']);
       return decoded;
     } catch (e) {
@@ -44,6 +43,7 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
         case 'jwt expired':
           throw new HttpException('토큰이 만료되었습니다.', 410);
         default:
+          console.log(e.message);
           throw new HttpException('서버 오류입니다.', 500);
       }
     }

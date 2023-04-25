@@ -9,27 +9,35 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAccessGuard } from 'src/auth/guards/access.guard';
 import { User } from './schema/user.schema';
 import { UserService } from './user.service';
 import { AuthService } from 'src/auth/auth.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CommunityService } from 'src/community/community.service';
 interface reqUser extends Request {
-  user: User;
+  user: {
+    email: string;
+    id: string;
+    iat: number;
+    exp: number;
+  };
 }
+
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(
     private authService: AuthService,
     private readonly userService: UserService,
+    private readonly communityService: CommunityService,
   ) {}
 
   @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '프로필' })
   @Get('profile')
   profile(@Req() req: reqUser) {
-    console.log(req.user, 'req.user');
     return this.userService.getProfile(req.user.email);
   }
 
@@ -44,5 +52,14 @@ export class UserController {
   @Post('create')
   async createUser(@Body() user: User): Promise<any> {
     return this.authService.createUser(user);
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: '작성한 게시글' })
+  @Get('myArticle')
+  getMyArticle(@Req() req: reqUser) {
+    const { id } = req.user;
+
+    return this.communityService.getMyArticle(id);
   }
 }

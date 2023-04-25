@@ -1,9 +1,11 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JumpitCrawlingService } from './jumpit-crawling.service';
 import { TestCrawlingService } from './test-crawling.service';
 import { WantedCrawlingService } from './wanted-crawling.service';
 import { WebCrawlingService } from './web-crawling.service';
 
+@ApiTags('WebCrawling')
 @Controller('web-crawling')
 export class WebCrawlingController {
   constructor(

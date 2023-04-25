@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
@@ -51,6 +51,7 @@ export class CommunityService {
     const results = await query.exec();
     return results;
   }
+
   async deleteBoard(_id: string): Promise<DeleteResult> {
     try {
       const result = await this.communityModel.deleteOne({ _id });
@@ -65,6 +66,23 @@ export class CommunityService {
     } catch (e) {
       console.log('게시글 업데이트에 실패했습니다', e.message);
       throw e;
+    }
+  }
+  async getMyArticle(userId: string): Promise<communityDocument[]> {
+    try {
+      const query = this.communityModel.find({
+        'userInfo.userId': userId,
+      });
+
+      const result = await query
+        .select('_id')
+        .select('title')
+        .select('updatedAt')
+        .sort({ updatedAt: -1 })
+        .exec();
+      return result;
+    } catch (e) {
+      console.log('게시물 찾기에 실패', e.message);
     }
   }
 }

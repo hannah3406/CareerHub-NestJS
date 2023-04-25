@@ -71,10 +71,7 @@ export class AuthService {
     }
   }
 
-  async getRefreshToken(
-    payload: { email: string; sub: string },
-    res: Response,
-  ) {
+  async getRefreshToken(payload: { email: string; id: string }, res: Response) {
     const refresh = this.jwtService.sign(payload, {
       secret: jwtConstants.REFRESH_TOKEN,
       expiresIn: jwtConstants.REFRESH_EXPIRESIN,
@@ -89,7 +86,7 @@ export class AuthService {
       sameSite: 'none',
     });
   }
-  async getAceessToken(payload: { email: string; sub: string }) {
+  async getAceessToken(payload: { email: string; id: string }) {
     const token = this.jwtService.sign(payload, {
       secret: jwtConstants.ACCESS_TOKEN,
       expiresIn: jwtConstants.ACCESS_EXPIRESIN,
@@ -100,7 +97,7 @@ export class AuthService {
   async login(data: LoginRequestDto, res: Response, isRefreshEmpty: boolean) {
     const { email } = data;
     const user = await this.userRepository.findUserByEmail(email);
-    const payload = { email, sub: user.name };
+    const payload = { email, id: user._id.toString() };
     const accessToken = await this.getAceessToken(payload);
     if (isRefreshEmpty) {
       await this.getRefreshToken(payload, res);
@@ -112,7 +109,7 @@ export class AuthService {
     const refreshToken = null;
     return this.userRepository.updateRefreshToken(refreshToken, email);
   }
-  async refresh(payload: { email: string; sub: string }, res: Response) {
+  async refresh(payload: { email: string; id: string }, res: Response) {
     const accessToken = await this.getAceessToken(payload);
     await this.getRefreshToken(payload, res);
     return accessToken;

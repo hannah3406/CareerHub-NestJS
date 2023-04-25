@@ -21,7 +21,6 @@ export class UserService {
   async getProfile(email: string) {
     try {
       const result = await this.userRepository.findProfileByEmail(email);
-      console.log('result', result);
       return result;
     } catch (e) {
       console.log(e, 'findProfileByEmail 찾기 실패');
