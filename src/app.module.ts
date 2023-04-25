@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { WebCrawlingModule } from './web-crawling/web-crawling.module';
 import { CommunityModule } from './community/community.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CommunityModule } from './community/community.module';
     AuthModule,
     CommunityModule,
     WebCrawlingModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
