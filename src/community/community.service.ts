@@ -2,8 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateBoardDto } from './dto/create-board';
+import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
-
+type DeleteResult = {
+  acknowledged: boolean;
+  deletedCount: number;
+};
 @Injectable()
 export class CommunityService {
   constructor(
@@ -41,5 +45,26 @@ export class CommunityService {
     const total = await this.communityModel.countDocuments(filter);
     const results = await query.exec();
     return { total, results };
+  }
+  async getBoardById(_id: string): Promise<communityDocument[]> {
+    const query = this.communityModel.find({ _id });
+    const results = await query.exec();
+    return results;
+  }
+  async deleteBoard(_id: string): Promise<DeleteResult> {
+    try {
+      const result = await this.communityModel.deleteOne({ _id });
+      return result;
+    } catch (e) {
+      console.log(e, '게시글 삭제 오류 발생');
+    }
+  }
+  async updateBoard(_id: string, editData: UpdateBoardDto) {
+    try {
+      return await this.communityModel.updateOne({ _id }, { $set: editData });
+    } catch (e) {
+      console.log('게시글 업데이트에 실패했습니다', e.message);
+      throw e;
+    }
   }
 }
