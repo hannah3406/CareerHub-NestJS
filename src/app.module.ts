@@ -7,6 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { WebCrawlingModule } from './web-crawling/web-crawling.module';
 import { CommunityModule } from './community/community.module';
 import { CommentsModule } from './comments/comments.module';
+import { MypageController } from './mypage/mypage.controller';
+import { MypageService } from './mypage/mypage.service';
+import { MypageModule } from './mypage/mypage.module';
 
 @Module({
   imports: [
@@ -22,8 +25,9 @@ import { CommentsModule } from './comments/comments.module';
     CommunityModule,
     WebCrawlingModule,
     CommentsModule,
+    MypageModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, MypageController],
+  providers: [AppService, MypageService],
 })
 export class AppModule {}

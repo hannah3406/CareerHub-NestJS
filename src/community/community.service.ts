@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
+import { Touchscreen } from 'puppeteer';
+import { CommentsService } from 'src/comments/comments.service';
+import { CreateCommentDto } from 'src/comments/dto/create-comment';
+import { commentsDocument } from 'src/comments/schema/comments.schema';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
@@ -13,10 +17,11 @@ export class CommunityService {
   constructor(
     @InjectModel(Community.name)
     private readonly communityModel: Model<communityDocument>,
+    private readonly commentsService: CommentsService,
   ) {}
 
   async createBoard(boardData: CreateBoardDto) {
-    await this.communityModel.create({ ...boardData, like: 0 });
+    await this.communityModel.create({ ...boardData, like: 0, commentCnt: 0 });
   }
 
   async getList(queryString: {
@@ -46,8 +51,16 @@ export class CommunityService {
     const results = await query.exec();
     return { total, results };
   }
-  async getBoardById(_id: string): Promise<communityDocument[]> {
-    const query = this.communityModel.find({ _id });
+  async getBoardById(_id: string): Promise<{
+    boardDetail: communityDocument;
+    boardComments: commentsDocument[];
+  }> {
+    const boardDetail = await this.getBoardDetailById(_id);
+    const boardComments = await this.commentsService.getCommentById(_id);
+    return { boardDetail, boardComments };
+  }
+  private async getBoardDetailById(_id: string): Promise<communityDocument> {
+    const query = this.communityModel.findOne({ _id });
     const results = await query.exec();
     return results;
   }
@@ -68,21 +81,39 @@ export class CommunityService {
       throw e;
     }
   }
-  async getMyArticle(userId: string): Promise<communityDocument[]> {
-    try {
-      const query = this.communityModel.find({
-        'userInfo.userId': userId,
-      });
 
-      const result = await query
+  async getMyBoard(userId: string): Promise<communityDocument[]> {
+    try {
+      const query = this.communityModel
+        .find({
+          'userInfo.userId': userId,
+        })
         .select('_id')
         .select('title')
         .select('updatedAt')
-        .sort({ updatedAt: -1 })
-        .exec();
+        .sort({ createdAt: -1 });
+
+      const result = await query.exec();
       return result;
     } catch (e) {
       console.log('게시물 찾기에 실패', e.message);
+    }
+  }
+  async createComment(commentData: CreateCommentDto) {
+    const { boardInfo } = commentData;
+    const result = await this.commentsService.createComment(commentData);
+    await this.updateCommentCount(boardInfo.boardId);
+    return result;
+  }
+  async updateCommentCount(_id: string): Promise<any> {
+    try {
+      const community = await this.communityModel.findById(_id);
+      community.commentCnt = community.commentCnt + 1;
+      await community.save();
+      return community;
+    } catch (e) {
+      console.log('댓글 카운팅 실패', e.message);
+      throw e;
     }
   }
 }

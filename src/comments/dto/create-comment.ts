@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-
+type boardInfo = {
+  boardId: string;
+  title: string;
+};
 export class CreateCommentDto {
   @ApiProperty({
     example: '반가워요~',
@@ -11,11 +14,11 @@ export class CreateCommentDto {
   contents: string;
 
   @ApiProperty({
-    example: 'articleInfo',
+    example: 'boardInfo',
     description: '게시글 id,title',
   })
   @IsNotEmpty()
-  articleInfo: object;
+  boardInfo: boardInfo;
 
   @ApiProperty({
     example: '작성자id',

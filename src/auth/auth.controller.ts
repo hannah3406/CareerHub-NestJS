@@ -28,6 +28,12 @@ export class AuthController {
     private readonly userRepository: UserRepository,
   ) {}
 
+  @ApiOperation({ summary: '회원가입' })
+  @Post('create')
+  async createUser(@Body() user: User): Promise<any> {
+    return this.authService.createUser(user);
+  }
+
   @ApiOperation({ summary: '로그인' })
   @UseGuards(LocalAuthGuard)
   @Post('login')

@@ -55,6 +55,11 @@ export class Community {
     type: Number,
   })
   like: number;
+
+  @Prop({
+    type: Number,
+  })
+  commentCnt: number;
 }
 
 export const CommunitySchema = SchemaFactory.createForClass(Community);

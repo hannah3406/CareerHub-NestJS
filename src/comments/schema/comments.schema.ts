@@ -8,9 +8,10 @@ const options: SchemaOptions = {
   _id: true,
   id: true,
 };
+
 export type commentsDocument = Comments & Document;
-type articleInfo = {
-  articleId: string;
+type boardInfo = {
+  boardId: string;
   title: string;
 };
 type userInfo = {
@@ -18,6 +19,7 @@ type userInfo = {
   userName: string;
   profileimg: string;
 };
+
 @Schema(options)
 export class Comments {
   _id: Types.ObjectId;
@@ -29,7 +31,7 @@ export class Comments {
   @Prop({
     type: Object,
   })
-  articleInfo: articleInfo;
+  boardInfo: boardInfo;
 
   @Prop({
     type: Object,

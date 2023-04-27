@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAccessGuard } from 'src/auth/guards/access.guard';
+
+import { Comments } from 'src/comments/schema/comments.schema';
 import { CommunityService } from './community.service';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community } from './schema/community.schema';
@@ -51,5 +53,11 @@ export class CommunityController {
   @Delete('deleteBoard/:id')
   async deleteBoard(@Param('id') id: string) {
     return this.communityService.deleteBoard(id);
+  }
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: '댓글작성' })
+  @Post('/comments/create')
+  async createComment(@Body() comment: Comments): Promise<any> {
+    return this.communityService.createComment(comment);
   }
 }
