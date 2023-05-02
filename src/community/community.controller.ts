@@ -7,12 +7,15 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UpdateWriteOpResult } from 'mongoose';
 import { JwtAccessGuard } from 'src/auth/guards/access.guard';
 
 import { Comments } from 'src/comments/schema/comments.schema';
+import { reqUser } from 'src/user/user.controller';
 import { CommunityService } from './community.service';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community } from './schema/community.schema';
@@ -22,7 +25,7 @@ import { Community } from './schema/community.schema';
 export class CommunityController {
   constructor(private readonly communityService: CommunityService) {}
 
-  @UseGuards(JwtAccessGuard)
+  // @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '게시글목록' })
   @Get('/getList')
   async getList(@Query() query) {
@@ -40,6 +43,18 @@ export class CommunityController {
   @Post('createBoard')
   async createBoard(@Body() community: Community): Promise<any> {
     return this.communityService.createBoard(community);
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: '좋아요' })
+  @Post('like')
+  async boardLike(
+    @Req() req: reqUser,
+    @Body() boardId: string,
+  ): Promise<{ result: UpdateWriteOpResult; isLikeState: boolean }> {
+    const { id } = req.user;
+    return this.communityService.boardLike(id, boardId);
   }
 
   @UseGuards(JwtAccessGuard)

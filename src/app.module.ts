@@ -10,6 +10,7 @@ import { CommentsModule } from './comments/comments.module';
 import { MypageController } from './mypage/mypage.controller';
 import { MypageService } from './mypage/mypage.service';
 import { MypageModule } from './mypage/mypage.module';
+import { RecommendBoardModule } from './recommend-board/recommend-board.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MypageModule } from './mypage/mypage.module';
     WebCrawlingModule,
     CommentsModule,
     MypageModule,
+    RecommendBoardModule,
   ],
   controllers: [AppController, MypageController],
   providers: [AppService, MypageService],

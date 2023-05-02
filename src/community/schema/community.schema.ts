@@ -52,9 +52,9 @@ export class Community {
   userInfo: userInfo;
 
   @Prop({
-    type: Number,
+    type: Object,
   })
-  like: number;
+  like: object;
 
   @Prop({
     type: Number,

@@ -20,6 +20,7 @@ export class WantedCrawlingService {
 
   async crawl() {
     const browser = await puppeteer.launch({
+      defaultViewport: { width: 1200, height: 900 },
       headless: false,
       waitForInitialPage: true,
       args: [

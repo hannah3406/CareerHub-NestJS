@@ -20,6 +20,7 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const { authorization } = request.headers;
+
     if (authorization === undefined) {
       throw new HttpException('Token 전송 안됨', HttpStatus.UNAUTHORIZED);
     }
@@ -31,7 +32,9 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
     const secretKey = jwtConstants.ACCESS_TOKEN;
     try {
       const decoded = this.jwtService.verify(token, { secret: secretKey });
+
       this.userService.getByEmail(decoded['email']);
+
       return decoded;
     } catch (e) {
       switch (e.message) {
@@ -41,7 +44,8 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
         case 'NO_USER':
           throw new HttpException('유효하지 않은 토큰입니다.', 401);
         case 'jwt expired':
-          throw new HttpException('토큰이 만료되었습니다.', 410);
+          console.log(e.message);
+          throw new HttpException('에에엥ㅇ?토큰이 만료되었습니다.', 410);
         default:
           console.log(e.message);
           throw new HttpException('서버 오류입니다.', 500);

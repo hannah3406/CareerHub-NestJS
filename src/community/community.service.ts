@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Touchscreen } from 'puppeteer';
+import { Model, UpdateWriteOpResult } from 'mongoose';
+
 import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
 import { commentsDocument } from 'src/comments/schema/comments.schema';
+import { TList } from 'src/recommend-board/schema/recommend-board.schema';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
@@ -82,6 +83,37 @@ export class CommunityService {
     }
   }
 
+  async boardLike(
+    userId: string,
+    boardId: string,
+  ): Promise<{ result: UpdateWriteOpResult; isLikeState: boolean }> {
+    const isLike = await this.communityModel.find({
+      _id: boardId,
+      like: userId,
+    });
+    if (isLike.length !== 0) {
+      try {
+        const result = await this.communityModel.updateOne(
+          { _id: boardId },
+          { $pull: { like: userId } },
+        );
+        return { result, isLikeState: false };
+      } catch (e) {
+        console.log('좋아요 제거 오류', e.message);
+      }
+    } else {
+      try {
+        const result = await this.communityModel.updateOne(
+          { _id: boardId },
+          { $addToSet: { like: userId } },
+        );
+        return { result, isLikeState: true };
+      } catch (e) {
+        console.log('좋아요 저장 오류', e.message);
+      }
+    }
+  }
+
   async getMyBoard(userId: string): Promise<communityDocument[]> {
     try {
       const query = this.communityModel
@@ -105,6 +137,35 @@ export class CommunityService {
     await this.updateCommentCount(boardInfo.boardId);
     return result;
   }
+
+  async sortCommentCntBoard() {
+    try {
+      const query = this.communityModel
+        .find()
+        .sort({ commentCnt: -1 })
+        .limit(5)
+        .select('_id');
+
+      const result = await query.exec();
+      return result;
+    } catch (e) {
+      console.log('댓글순 정렬 실패', e.message);
+    }
+  }
+  async sortLikeBoard() {
+    try {
+      const query = this.communityModel
+        .find()
+        .sort({ like: -1 })
+        .limit(5)
+        .select('_id');
+
+      const result = await query.exec();
+      return result;
+    } catch (e) {
+      console.log('좋아요순 정렬 실패', e.message);
+    }
+  }
   async updateCommentCount(_id: string): Promise<any> {
     try {
       const community = await this.communityModel.findById(_id);
@@ -114,6 +175,19 @@ export class CommunityService {
     } catch (e) {
       console.log('댓글 카운팅 실패', e.message);
       throw e;
+    }
+  }
+  async findRecommendBoard(recommendList: TList[]) {
+    try {
+      const communities = await Promise.all(
+        recommendList.map(async ({ id, score }) => {
+          const community = await this.communityModel.findById(id);
+          return { ...community.toJSON(), score };
+        }),
+      );
+      return communities;
+    } catch (e) {
+      console.log('게시물 찾기에 실패', e.message);
     }
   }
 }
