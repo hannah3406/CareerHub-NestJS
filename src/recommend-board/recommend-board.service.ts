@@ -24,20 +24,21 @@ export class RecommendBoardService {
       id: el._id,
       score: 5 - idx,
     }));
+
     const commentCntSort = commentCnt.map((el, idx) => ({
       id: el._id,
       score: 5 - idx,
     }));
+
     const merged = [...likeSort, ...commentCntSort];
     const rankMap = merged.reduce((acc, cur) => {
       const { id, score } = cur;
       acc[id] = acc[id] ? acc[id] + score : score;
       return acc;
     }, {});
-
     const rank = Object.keys(rankMap).map((id) => ({ id, score: rankMap[id] }));
-
     const top5 = rank.sort((a, b) => b.score - a.score).slice(0, 5);
+
     await this.recommendBoardModel.create({ list: top5 });
   }
 
