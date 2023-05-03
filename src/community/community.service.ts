@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
-import { Touchscreen } from 'puppeteer';
 
 import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
 import { commentsDocument } from 'src/comments/schema/comments.schema';
-import { TList } from 'src/recommend-board/schema/recommend-board.schema';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
