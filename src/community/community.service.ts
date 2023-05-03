@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
+import { Touchscreen } from 'puppeteer';
 
 import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
@@ -22,7 +23,7 @@ export class CommunityService {
   ) {}
 
   async createBoard(boardData: CreateBoardDto) {
-    await this.communityModel.create({ ...boardData, like: 0, commentCnt: 0 });
+    await this.communityModel.create({ ...boardData, like: [], commentCnt: 0 });
   }
 
   async getList(queryString: {
@@ -177,14 +178,13 @@ export class CommunityService {
       throw e;
     }
   }
-  async findRecommendBoard(recommendList: TList[]) {
+  async findRecommendBoard(ids: string[]) {
     try {
-      const communities = await Promise.all(
-        recommendList.map(async ({ id, score }) => {
-          const community = await this.communityModel.findById(id);
-          return { ...community.toJSON(), score };
-        }),
-      );
+      const communities = await this.communityModel.find({
+        _id: {
+          $in: [...ids],
+        },
+      });
       return communities;
     } catch (e) {
       console.log('게시물 찾기에 실패', e.message);

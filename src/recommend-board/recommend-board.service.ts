@@ -47,11 +47,13 @@ export class RecommendBoardService {
       .findOne()
       .sort({ _id: -1 })
       .select('list');
-
-    const communities = await this.communityService.findRecommendBoard(
-      recommendBoardsId.list,
-    );
-    const result = communities.sort((a, b) => b.score - a.score);
+    const ids = recommendBoardsId.list.map((list) => list.id);
+    const boardList = await this.communityService.findRecommendBoard(ids);
+    const recommendBoard = recommendBoardsId.list.map(({ id, score }) => {
+      const board = boardList.find((item) => item.id === id);
+      return { ...board.toJSON(), score };
+    });
+    const result = recommendBoard.sort((a, b) => b.score - a.score);
     return result;
   }
   @Cron(CronExpression.EVERY_WEEK)
