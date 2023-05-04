@@ -11,16 +11,15 @@ import { MypageController } from './mypage/mypage.controller';
 import { MypageService } from './mypage/mypage.service';
 import { MypageModule } from './mypage/mypage.module';
 import { RecommendBoardModule } from './recommend-board/recommend-board.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://admin:admin@cluster0.yiqykot.mongodb.net/?retryWrites=true&w=majority',
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-    ),
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.DATABASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     UserModule,
     AuthModule,
     CommunityModule,

@@ -12,8 +12,8 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: true,
-    preflightContinue: false,
+    origin: ['http://localhost:3000', 'https://careerhub-front.netlify.app'],
+    credentials: true,
   });
   const config = new BaseAPIDocument().initializeOptions();
   const document = SwaggerModule.createDocument(app, config);
