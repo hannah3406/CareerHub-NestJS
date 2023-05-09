@@ -23,6 +23,18 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+커리어허브 (CarrerrHub) 백엔드 레퍼지토리입니다.
+
+커리어허브 : 유명 공고 사이트들의 공고글을 크롤링하여, 한번에 모아보고 채용 공고에 대한 다양한 커뮤니티와 통계를 제공하는 플랫폼.
+
+개발 api 
+- webcrawling ( 주요 2개 공고 사이트 크롤링 스크립트 )
+- community ( 커뮤니티 )
+- auth (JWT 인가/인증)
+- user (사용자)
+- comment (댓글)
+- mypage (마이 페이지)
+- recommend-board (추천 게시글)
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
