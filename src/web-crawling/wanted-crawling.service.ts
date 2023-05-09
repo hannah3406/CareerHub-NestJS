@@ -21,7 +21,7 @@ export class WantedCrawlingService {
   async crawl() {
     const browser = await puppeteer.launch({
       defaultViewport: { width: 1200, height: 900 },
-      headless: false,
+      headless: true,
       waitForInitialPage: true,
       args: [
         '--disable-web-security',
@@ -68,13 +68,11 @@ export class WantedCrawlingService {
         await page.setUserAgent(
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
         );
-        await page.focus('body');
+
         console.log('body');
-        await page.click('body');
+
         // title
         await page.waitForSelector('section.JobHeader_className__HttDA > h2');
-        await page.click('section.JobHeader_className__HttDA > h2');
-        console.log('click');
         const _title = await page.$('section.JobHeader_className__HttDA > h2');
         const title = _title
           ? await _title
@@ -93,11 +91,12 @@ export class WantedCrawlingService {
               .getProperty('innerText')
               .then((el) => el.jsonValue() as unknown as string)
           : '';
-        await pageDown(page);
+
         // description
         await page.waitForSelector(
-          'section.JobDescription_JobDescription__VWfcb',
+          'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(1) > span',
         );
+        await pageDown(page);
         const _description = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(1) > span',
         );
@@ -109,7 +108,7 @@ export class WantedCrawlingService {
 
         // majorTasks
         await page.waitForSelector(
-          'section.JobDescription_JobDescription__VWfcb',
+          'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(2) > span',
         );
         const _majorTasks = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(2) > span',
@@ -123,7 +122,7 @@ export class WantedCrawlingService {
 
         // experience
         await page.waitForSelector(
-          'section.JobDescription_JobDescription__VWfcb',
+          'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(3) > span',
         );
         const _experience = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(3) > span',
@@ -136,7 +135,7 @@ export class WantedCrawlingService {
         const experience = exp.replace(/\n\n/gi, '\n');
         // preferential
         await page.waitForSelector(
-          'section.JobDescription_JobDescription__VWfcb',
+          'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(4) > span',
         );
         const _preferential = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(4) > span',
@@ -149,7 +148,7 @@ export class WantedCrawlingService {
         const preferential = pre.replace(/\n\n/gi, '\n');
         // welfare
         await page.waitForSelector(
-          'section.JobDescription_JobDescription__VWfcb',
+          'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(5) > span',
         );
         const _welfare = await page.$(
           'section.JobDescription_JobDescription__VWfcb > p:nth-of-type(5) > span',

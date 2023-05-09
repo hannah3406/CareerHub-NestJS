@@ -1,8 +1,11 @@
 import {
   ExecutionContext,
+  GoneException,
   HttpException,
   HttpStatus,
   Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
@@ -42,13 +45,13 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
         case 'INVALID_TOKEN':
         case 'TOKEN_IS_ARRAY':
         case 'NO_USER':
-          throw new HttpException('유효하지 않은 토큰입니다.', 401);
+          throw new UnauthorizedException('유효하지 않은 토큰입니다.');
         case 'jwt expired':
           console.log(e.message);
-          throw new HttpException('에에엥ㅇ?토큰이 만료되었습니다.', 410);
+          throw new GoneException('토큰이 만료되었습니다.');
         default:
           console.log(e.message);
-          throw new HttpException('서버 오류입니다.', 500);
+          throw new InternalServerErrorException('서버 오류입니다.');
       }
     }
   }

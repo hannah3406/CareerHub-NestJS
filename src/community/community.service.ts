@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 
 import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
 import { commentsDocument } from 'src/comments/schema/comments.schema';
+import { UserService } from 'src/user/user.service';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
@@ -18,10 +19,16 @@ export class CommunityService {
     @InjectModel(Community.name)
     private readonly communityModel: Model<communityDocument>,
     private readonly commentsService: CommentsService,
+    private readonly userService: UserService,
   ) {}
 
   async createBoard(boardData: CreateBoardDto) {
-    await this.communityModel.create({ ...boardData, like: [], commentCnt: 0 });
+    await this.communityModel.create({
+      ...boardData,
+      like: [],
+      commentCnt: 0,
+      review: 0,
+    });
   }
 
   async getList(queryString: {
@@ -70,15 +77,26 @@ export class CommunityService {
       const result = await this.communityModel.deleteOne({ _id });
       return result;
     } catch (e) {
-      console.log(e, '게시글 삭제 오류 발생');
+      throw new UnauthorizedException('게시글 삭제 오류 발생');
     }
   }
   async updateBoard(_id: string, editData: UpdateBoardDto) {
     try {
       return await this.communityModel.updateOne({ _id }, { $set: editData });
     } catch (e) {
-      console.log('게시글 업데이트에 실패했습니다', e.message);
-      throw e;
+      throw new UnauthorizedException('게시글 업데이트에 실패했습니다');
+    }
+  }
+  async viewCount(userId: string, _id: string) {
+    const isReview = await this.userService.findReviewById(userId, _id);
+    if (isReview === null) return;
+    try {
+      const result = await this.communityModel.findByIdAndUpdate(_id, {
+        $inc: { review: 1 },
+      });
+      return result;
+    } catch (e) {
+      throw new UnauthorizedException('조회수 카운팅 실패했습니다');
     }
   }
 
@@ -98,7 +116,7 @@ export class CommunityService {
         );
         return { result, isLikeState: false };
       } catch (e) {
-        console.log('좋아요 제거 오류', e.message);
+        throw new UnauthorizedException('좋아요 제거 오류');
       }
     } else {
       try {
@@ -167,9 +185,9 @@ export class CommunityService {
   }
   async updateCommentCount(_id: string): Promise<any> {
     try {
-      const community = await this.communityModel.findById(_id);
-      community.commentCnt = community.commentCnt + 1;
-      await community.save();
+      const community = await this.communityModel.findByIdAndUpdate(_id, {
+        $inc: { commentCnt: 1 },
+      });
       return community;
     } catch (e) {
       console.log('댓글 카운팅 실패', e.message);

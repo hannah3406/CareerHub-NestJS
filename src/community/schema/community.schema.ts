@@ -60,6 +60,11 @@ export class Community {
     type: Number,
   })
   commentCnt: number;
+
+  @Prop({
+    type: Number,
+  })
+  review: number;
 }
 
 export const CommunitySchema = SchemaFactory.createForClass(Community);

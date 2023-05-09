@@ -47,4 +47,13 @@ export class UserService {
       return user;
     }
   }
+  async findReviewById(id: string, boardId: string) {
+    // userModel 에서 id로 review 가져오기
+    const { review } = await this.userRepository.findReviewById(id);
+    if (review.includes(boardId)) return null;
+    try {
+      // userModel 에서 id의 review 안에 boardId 추가
+      return this.userRepository.updateReviewById(id, boardId);
+    } catch (e) {}
+  }
 }

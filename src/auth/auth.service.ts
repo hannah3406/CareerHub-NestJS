@@ -1,10 +1,4 @@
-import {
-  ForbiddenException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
@@ -28,7 +22,7 @@ export class AuthService {
       await this.verifyPassword(plainTextPassword, user.password);
       return user;
     } catch (error) {
-      throw new HttpException('계정이 없습니다', HttpStatus.BAD_REQUEST);
+      throw new UnauthorizedException('계정이 없습니다');
     }
   }
   private async verifyPassword(password: string, hashedPassword: string) {
@@ -37,11 +31,7 @@ export class AuthService {
       hashedPassword,
     );
     if (!isPasswordVaildated) {
-      throw new ForbiddenException({
-        statusCode: HttpStatus.FORBIDDEN,
-        message: [`사용자 정보가 일치하지 않습니다.`],
-        error: 'Forbidden',
-      });
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
   }
   async createUser(userData: CreateUserDto) {
@@ -63,10 +53,7 @@ export class AuthService {
       return user.readOnlyData;
     } catch (error) {
       if (error?.code === 'ER_DUP_ENTRY') {
-        throw new HttpException(
-          '이미 존재하는 계정입니다',
-          HttpStatus.BAD_REQUEST,
-        );
+        throw new UnauthorizedException('이미 존재하는 계정입니다.');
       }
     }
   }

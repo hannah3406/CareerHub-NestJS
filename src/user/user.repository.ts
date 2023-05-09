@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -30,11 +30,37 @@ export class UserRepository {
     // return await this.userModel.findOne({ email });
   }
   async findProfileByEmail(email: string): Promise<User | null> {
-    console.log(email, '===============================');
     return await this.userModel
       .findOne({ email })
       .select('-password')
       .select('-refreshToken');
+  }
+  async findReviewById(_id: string): Promise<User | null> {
+    try {
+      const result = await this.userModel.findOne({ _id }).select('review');
+      // if (!result) {
+      //   throw new BadRequestException({
+      //     statusCode: HttpStatus.BAD_REQUEST,
+      //     message,
+      //   });
+      // }
+      return result;
+    } catch (e) {
+      console.log(e, 'user 리뷰 조회 실패!');
+    }
+  }
+  async updateReviewById(
+    _id: string,
+    boardId: string,
+  ): Promise<UpdateWriteOpResult> {
+    try {
+      return this.userModel.updateOne(
+        { _id },
+        { $addToSet: { review: boardId } },
+      );
+    } catch (e) {
+      console.log(e, 'user 리뷰 조회 실패!');
+    }
   }
   async existsByEmail(email: string): Promise<boolean> {
     const result = await this.userModel.exists({ email });

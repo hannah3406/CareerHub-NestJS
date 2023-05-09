@@ -12,6 +12,9 @@ const options: SchemaOptions = {
 export type userDocument = User & Document;
 @Schema(options)
 export class User {
+  includes(_id: string) {
+    throw new Error('Method not implemented.');
+  }
   _id: Types.ObjectId;
 
   @Prop({
@@ -42,6 +45,9 @@ export class User {
   @Prop({ nullable: true })
   @Exclude()
   refreshToken?: string;
+
+  @Prop({ type: [String] })
+  review: string[];
 
   readonly readOnlyData: {
     email: string;

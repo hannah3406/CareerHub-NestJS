@@ -46,6 +46,18 @@ export class CommunityController {
   }
 
   @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: '조회수' })
+  @Post('viewCount/:boardId')
+  async viewCount(
+    @Req() req: reqUser,
+    @Param('boardId') boardId: string,
+  ): Promise<any> {
+    console.log(boardId);
+    const { id } = req.user;
+    return this.communityService.viewCount(id, boardId);
+  }
+
+  @UseGuards(JwtAccessGuard)
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '좋아요' })
   @Post('like')
