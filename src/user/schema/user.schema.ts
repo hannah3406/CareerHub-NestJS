@@ -47,7 +47,7 @@ export class User {
   refreshToken?: string;
 
   @Prop({ type: [String] })
-  review: string[];
+  view: string[];
 
   readonly readOnlyData: {
     email: string;

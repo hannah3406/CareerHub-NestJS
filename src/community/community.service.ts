@@ -1,10 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 
 import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
 import { commentsDocument } from 'src/comments/schema/comments.schema';
+import { RecommendBoardService } from 'src/recommend-board/recommend-board.service';
 import { UserService } from 'src/user/user.service';
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
@@ -19,6 +25,8 @@ export class CommunityService {
     @InjectModel(Community.name)
     private readonly communityModel: Model<communityDocument>,
     private readonly commentsService: CommentsService,
+    @Inject(forwardRef(() => RecommendBoardService))
+    private readonly recommendBoardService: RecommendBoardService,
     private readonly userService: UserService,
   ) {}
 
@@ -27,7 +35,7 @@ export class CommunityService {
       ...boardData,
       like: [],
       commentCnt: 0,
-      review: 0,
+      view: 0,
     });
   }
 
@@ -75,6 +83,7 @@ export class CommunityService {
   async deleteBoard(_id: string): Promise<DeleteResult> {
     try {
       const result = await this.communityModel.deleteOne({ _id });
+      this.recommendBoardService.saveRecommendBoards();
       return result;
     } catch (e) {
       throw new UnauthorizedException('게시글 삭제 오류 발생');
@@ -92,7 +101,7 @@ export class CommunityService {
     if (isReview === null) return;
     try {
       const result = await this.communityModel.findByIdAndUpdate(_id, {
-        $inc: { review: 1 },
+        $inc: { view: 1 },
       });
       return result;
     } catch (e) {
@@ -155,32 +164,18 @@ export class CommunityService {
     return result;
   }
 
-  async sortCommentCntBoard() {
+  async sortByKeyBoard(key: string) {
     try {
       const query = this.communityModel
         .find()
-        .sort({ commentCnt: -1 })
+        .sort({ [key]: -1 })
         .limit(5)
         .select('_id');
 
       const result = await query.exec();
       return result;
     } catch (e) {
-      console.log('댓글순 정렬 실패', e.message);
-    }
-  }
-  async sortLikeBoard() {
-    try {
-      const query = this.communityModel
-        .find()
-        .sort({ like: -1 })
-        .limit(5)
-        .select('_id');
-
-      const result = await query.exec();
-      return result;
-    } catch (e) {
-      console.log('좋아요순 정렬 실패', e.message);
+      console.log(`${key} 실패`, e.message);
     }
   }
   async updateCommentCount(_id: string): Promise<any> {

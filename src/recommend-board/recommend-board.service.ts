@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Model } from 'mongoose';
@@ -13,24 +13,20 @@ export class RecommendBoardService {
   constructor(
     @InjectModel(RecommendBoard.name)
     private readonly recommendBoardModel: Model<RecommendBoardDocument>,
+    @Inject(forwardRef(() => CommunityService))
     private readonly communityService: CommunityService,
   ) {}
 
   async saveRecommendBoards() {
-    const commentCnt = await this.communityService.sortCommentCntBoard();
-    const like = await this.communityService.sortLikeBoard();
+    const commentCnt = await this.communityService.sortByKeyBoard('commentCnt');
+    const like = await this.communityService.sortByKeyBoard('like');
+    const view = await this.communityService.sortByKeyBoard('view');
 
-    const likeSort = like.map((el, idx) => ({
-      id: el._id,
-      score: 5 - idx,
-    }));
+    const likeSort = this.sortObject(like);
+    const commentCntSort = this.sortObject(commentCnt);
+    const viewCntSort = this.sortObject(view);
 
-    const commentCntSort = commentCnt.map((el, idx) => ({
-      id: el._id,
-      score: 5 - idx,
-    }));
-
-    const merged = [...likeSort, ...commentCntSort];
+    const merged = [...likeSort, ...commentCntSort, ...viewCntSort];
     const rankMap = merged.reduce((acc, cur) => {
       const { id, score } = cur;
       acc[id] = acc[id] ? acc[id] + score : score;
@@ -59,5 +55,11 @@ export class RecommendBoardService {
   @Cron(CronExpression.EVERY_WEEK)
   async saveRecommendEveryDays() {
     await this.saveRecommendBoards();
+  }
+  sortObject(result: any[]) {
+    return result.map((el, idx) => ({
+      id: el._id,
+      score: 5 - idx,
+    }));
   }
 }

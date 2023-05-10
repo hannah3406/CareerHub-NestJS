@@ -64,7 +64,7 @@ export class Community {
   @Prop({
     type: Number,
   })
-  review: number;
+  view: number;
 }
 
 export const CommunitySchema = SchemaFactory.createForClass(Community);

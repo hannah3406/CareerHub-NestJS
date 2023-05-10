@@ -37,7 +37,7 @@ export class UserRepository {
   }
   async findReviewById(_id: string): Promise<User | null> {
     try {
-      const result = await this.userModel.findOne({ _id }).select('review');
+      const result = await this.userModel.findOne({ _id }).select('view');
       // if (!result) {
       //   throw new BadRequestException({
       //     statusCode: HttpStatus.BAD_REQUEST,
@@ -56,7 +56,7 @@ export class UserRepository {
     try {
       return this.userModel.updateOne(
         { _id },
-        { $addToSet: { review: boardId } },
+        { $addToSet: { view: boardId } },
       );
     } catch (e) {
       console.log(e, 'user 리뷰 조회 실패!');
