@@ -12,7 +12,6 @@ export class UserService {
     if (user) {
       return user;
     }
-
     throw new HttpException(
       '존재하지 않는 이메일입니다! 회원가입 후 이용해주세요',
       HttpStatus.NOT_FOUND,
@@ -23,7 +22,7 @@ export class UserService {
       const result = await this.userRepository.findProfileByEmail(email);
       return result;
     } catch (e) {
-      console.log(e, 'findProfileByEmail 찾기 실패');
+      throw new HttpException('findProfileByEmail 찾기 실패', e.statusCode);
     }
   }
   async updateUser(_id: string, userData: UpdateUserDto) {
@@ -31,12 +30,16 @@ export class UserService {
     try {
       const result = await this.userRepository.updateById(_id, type, value);
       return result;
-    } catch (e) {}
+    } catch (e) {
+      throw new HttpException('updateById 실패', e.statusCode);
+    }
   }
   async setRefreshToken(refreshToken: string, email: string) {
     try {
       await this.userRepository.updateRefreshToken(refreshToken, email);
-    } catch (e) {}
+    } catch (e) {
+      throw new HttpException('updateRefreshToken 실패', e.statusCode);
+    }
   }
   async getUserIfRefreshTokenMatches(refreshToken: string, email: string) {
     const user = await this.userRepository.findUserByEmail(email);
@@ -54,6 +57,8 @@ export class UserService {
     try {
       // userModel 에서 id의 view 안에 boardId 추가
       return this.userRepository.updateReviewById(id, boardId);
-    } catch (e) {}
+    } catch (e) {
+      throw new HttpException('updateReviewById 실패', e.statusCode);
+    }
   }
 }

@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import { CustomExceptionFilter } from './excaption.filters';
+import { AllExceptionFilter } from './error.exception';
 import { BaseAPIDocument } from './swagger.document';
 
 declare const module: any;
@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new CustomExceptionFilter());
+  app.useGlobalFilters(new AllExceptionFilter());
   app.enableCors({
     origin: ['http://localhost:3000', 'https://careerhub-front.netlify.app'],
     credentials: true,

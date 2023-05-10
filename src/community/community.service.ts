@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  HttpException,
   Inject,
   Injectable,
   UnauthorizedException,
@@ -86,14 +87,14 @@ export class CommunityService {
       this.recommendBoardService.saveRecommendBoards();
       return result;
     } catch (e) {
-      throw new UnauthorizedException('게시글 삭제 오류 발생');
+      throw new HttpException('게시글 삭제 오류 발생했습니다', e.statusCode);
     }
   }
   async updateBoard(_id: string, editData: UpdateBoardDto) {
     try {
       return await this.communityModel.updateOne({ _id }, { $set: editData });
     } catch (e) {
-      throw new UnauthorizedException('게시글 업데이트에 실패했습니다');
+      throw new HttpException('게시글 업데이트에 실패했습니다', e.statusCode);
     }
   }
   async viewCount(userId: string, _id: string) {
@@ -105,7 +106,7 @@ export class CommunityService {
       });
       return result;
     } catch (e) {
-      throw new UnauthorizedException('조회수 카운팅 실패했습니다');
+      throw new HttpException('조회수 카운팅 실패했습니다', e.statusCode);
     }
   }
 
@@ -125,7 +126,7 @@ export class CommunityService {
         );
         return { result, isLikeState: false };
       } catch (e) {
-        throw new UnauthorizedException('좋아요 제거 오류');
+        throw new HttpException('좋아요 제거 오류', e.statusCode);
       }
     } else {
       try {
@@ -135,7 +136,7 @@ export class CommunityService {
         );
         return { result, isLikeState: true };
       } catch (e) {
-        console.log('좋아요 저장 오류', e.message);
+        throw new HttpException('좋아요 저장 오류', e.statusCode);
       }
     }
   }
@@ -154,7 +155,7 @@ export class CommunityService {
       const result = await query.exec();
       return result;
     } catch (e) {
-      console.log('게시물 찾기에 실패', e.message);
+      throw new HttpException('게시물 찾기에 실패', e.statusCode);
     }
   }
   async createComment(commentData: CreateCommentDto) {
@@ -175,7 +176,7 @@ export class CommunityService {
       const result = await query.exec();
       return result;
     } catch (e) {
-      console.log(`${key} 실패`, e.message);
+      throw new HttpException(`${key} 정렬 실패`, e.statusCode);
     }
   }
   async updateCommentCount(_id: string): Promise<any> {
@@ -185,8 +186,7 @@ export class CommunityService {
       });
       return community;
     } catch (e) {
-      console.log('댓글 카운팅 실패', e.message);
-      throw e;
+      throw new HttpException('댓글 카운팅 실패', e.statusCode);
     }
   }
   async findRecommendBoard(ids: string[]) {
@@ -198,7 +198,7 @@ export class CommunityService {
       });
       return communities;
     } catch (e) {
-      console.log('게시물 찾기에 실패', e.message);
+      throw new HttpException('게시물 찾기에 실패', e.statusCode);
     }
   }
 }

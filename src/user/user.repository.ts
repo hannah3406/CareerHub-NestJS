@@ -1,4 +1,9 @@
-import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,8 +29,7 @@ export class UserRepository {
         { $set: { [type]: value } },
       );
     } catch (e) {
-      console.log('사용자 업데이트에 실패했습니다', e.message);
-      throw e;
+      throw new HttpException('사용자 업데이트에 실패했습니다', e.statusCode);
     }
     // return await this.userModel.findOne({ email });
   }
@@ -38,15 +42,15 @@ export class UserRepository {
   async findReviewById(_id: string): Promise<User | null> {
     try {
       const result = await this.userModel.findOne({ _id }).select('view');
-      // if (!result) {
-      //   throw new BadRequestException({
-      //     statusCode: HttpStatus.BAD_REQUEST,
-      //     message,
-      //   });
-      // }
+      if (!result) {
+        throw new HttpException(
+          'user id가 잘못되었습니다',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
       return result;
     } catch (e) {
-      console.log(e, 'user 리뷰 조회 실패!');
+      throw new HttpException('user 리뷰 조회 실패', e.statusCode);
     }
   }
   async updateReviewById(
@@ -59,7 +63,7 @@ export class UserRepository {
         { $addToSet: { view: boardId } },
       );
     } catch (e) {
-      console.log(e, 'user 리뷰 조회 실패!');
+      throw new HttpException('user 리뷰 업데이트 실패', e.statusCode);
     }
   }
   async existsByEmail(email: string): Promise<boolean> {

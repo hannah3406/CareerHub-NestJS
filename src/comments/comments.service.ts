@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -15,7 +15,7 @@ export class CommentsService {
     try {
       return this.commentsModel.create({ ...commentData });
     } catch (e) {
-      throw new UnauthorizedException('댓글 생성에 실패');
+      throw new HttpException('댓글 생성에 실패', e.statusCode);
     }
   }
   async getMyComment(userId: string): Promise<commentsDocument[]> {
@@ -32,7 +32,7 @@ export class CommentsService {
       const result = await query.exec();
       return result;
     } catch (e) {
-      throw new UnauthorizedException('내 댓글 찾기에 실패');
+      throw new HttpException('내 댓글 찾기에 실패', e.statusCode);
     }
   }
   async getCommentById(boardId: string): Promise<commentsDocument[]> {
@@ -44,7 +44,10 @@ export class CommentsService {
         .sort({ updatedAt: -1 });
       return result;
     } catch (e) {
-      throw new UnauthorizedException('게시글 댓글 리스트 조회 실패');
+      throw new HttpException(
+        '게시글 댓글 리스트 조회 실패했습니다',
+        e.statusCode,
+      );
     }
   }
 }
