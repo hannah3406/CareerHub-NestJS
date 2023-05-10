@@ -52,7 +52,6 @@ export class CommunityController {
     @Req() req: reqUser,
     @Param('boardId') boardId: string,
   ): Promise<any> {
-    console.log(boardId);
     const { id } = req.user;
     return this.communityService.viewCount(id, boardId);
   }

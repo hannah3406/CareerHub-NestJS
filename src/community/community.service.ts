@@ -1,10 +1,4 @@
-import {
-  forwardRef,
-  HttpException,
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { forwardRef, HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 
@@ -199,6 +193,22 @@ export class CommunityService {
       return communities;
     } catch (e) {
       throw new HttpException('게시물 찾기에 실패', e.statusCode);
+    }
+  }
+  async findViewBoard(ids: string[]) {
+    try {
+      const viewBoards = await this.communityModel
+        .find({
+          _id: {
+            $in: [...ids],
+          },
+        })
+        .select('_id')
+        .select('title')
+        .select('createdAt');
+      return viewBoards;
+    } catch (e) {
+      throw new HttpException('내가 본 게시물 찾기에 실패', e.statusCode);
     }
   }
 }

@@ -5,12 +5,15 @@ import { CommentsService } from 'src/comments/comments.service';
 
 import { CommunityService } from 'src/community/community.service';
 import { reqUser } from 'src/user/user.controller';
+import { MypageService } from './mypage.service';
+
 @ApiTags('mypage')
 @Controller('mypage')
 export class MypageController {
   constructor(
     private readonly communityService: CommunityService,
     private readonly commentsService: CommentsService,
+    private readonly mypageService: MypageService,
   ) {}
 
   @UseGuards(JwtAccessGuard)
@@ -25,8 +28,15 @@ export class MypageController {
   @ApiOperation({ summary: '작성한 댓글' })
   @Get('myComment')
   getMyComment(@Req() req: reqUser) {
-    console.log('sss');
     const { id } = req.user;
     return this.commentsService.getMyComment(id);
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: '최근 본 게시글' })
+  @Get('myViewBoard')
+  getMyViewBoard(@Req() req: reqUser) {
+    const { id } = req.user;
+    return this.mypageService.getMyViewBoard(id);
   }
 }

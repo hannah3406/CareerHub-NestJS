@@ -52,13 +52,21 @@ export class UserService {
   }
   async findReviewById(id: string, boardId: string) {
     // userModel 에서 id로 view 가져오기
-    const { view } = await this.userRepository.findReviewById(id);
-    if (view.includes(boardId)) return null;
+    // const isView = await this.userRepository.isReviewById(id, boardId);
+    const isView =
+      (await this.userRepository.isReviewById(id, boardId)) !== null;
+
+    if (isView) return null;
     try {
       // userModel 에서 id의 view 안에 boardId 추가
       return this.userRepository.updateReviewById(id, boardId);
     } catch (e) {
       throw new HttpException('updateReviewById 실패', e.statusCode);
     }
+  }
+
+  async getMyViewBoard(id: string) {
+    const { view } = await this.userRepository.findReviewById(id);
+    return view;
   }
 }

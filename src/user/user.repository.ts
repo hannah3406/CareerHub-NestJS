@@ -53,6 +53,20 @@ export class UserRepository {
       throw new HttpException('user 리뷰 조회 실패', e.statusCode);
     }
   }
+  async isReviewById(id: string, boardId: string) {
+    try {
+      const result = await this.userModel.findOne({
+        _id: id,
+        view: {
+          $elemMatch: { $eq: boardId, $exists: true },
+        },
+      });
+      console.log(result, 'result');
+      return result;
+    } catch (e) {
+      throw new HttpException('리뷰 조회 실패', e.statusCode);
+    }
+  }
   async updateReviewById(
     _id: string,
     boardId: string,
