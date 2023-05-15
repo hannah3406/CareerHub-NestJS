@@ -23,19 +23,21 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-[ 개인 프로젝트 ]
-___ 플랫폼 명 : 커리어허브 (CareerHub)
-___ 운영 URL : https://careerhub-front.netlify.app/
-___ 플랫폼 설명 : 구인구직 채용 커뮤니티 플랫폼 (where job seekers and employers connect for new opportunities)
-___ 참여 인원 : 1명 (개인 단독 진행 중)
-___ 개발 영역 : 프론트, 백, 서버
-___ 기술 상세 :
-____________ 1) 프론트 : Typescript, Antd, Chakra, React-query, Recoil, Styled Component, ChartJS
-____________ 2) 백엔드 : NestJS, puppeteer
-____________ 3) DB : Mongo Atlas
-____________ 4) 서버 : GCP
-____________ 5) 추가 예정 : Kafka, ELK stack
-
+<div>
+[ 개인 프로젝트 ] </br>
+플랫폼 명 : 커리어허브 (CareerHub)  </br>
+운영 URL : https://careerhub-front.netlify.app/  </br>
+플랫폼 설명 : 구인구직 채용 커뮤니티 플랫폼 (where job seekers and employers connect for new opportunities)  </br>
+참여 인원 : 1명 (개인 단독 진행 중)  </br>
+개발 영역 : 프론트, 백, 서버  </br>
+기술 상세 :  </br>
+- 프론트 : Typescript, Antd, Chakra, React-query, Recoil, Styled Component, ChartJS  </br>
+- 백엔드 : NestJS, puppeteer  </br>
+- DB : Mongo Atlas </br>
+- 서버 : GCP  </br>
+- 추가 예정 : Kafka, ELK stack  </br>
+</div> </br></br>
+  
 개발 api 
 - webcrawling ( 주요 2개 공고 사이트 크롤링 스크립트 )
 - community ( 커뮤니티 )
@@ -45,7 +47,6 @@ ____________ 5) 추가 예정 : Kafka, ELK stack
 - mypage (마이 페이지)
 - recommend-board (추천 게시글)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
 
