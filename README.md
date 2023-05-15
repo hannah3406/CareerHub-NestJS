@@ -23,7 +23,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-<div>
+<div >
 [ 개인 프로젝트 ] </br>
 플랫폼 명 : 커리어허브 (CareerHub)  </br>
 운영 URL : https://careerhub-front.netlify.app/  </br>
