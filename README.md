@@ -24,6 +24,7 @@
 
 ## Description
 커리어허브 (CarrerrHub) 백엔드 레퍼지토리입니다.
+운영서버 url - https://careerhub-front.netlify.app/
 
 커리어허브 : 유명 공고 사이트들의 공고글을 크롤링하여, 한번에 모아보고 채용 공고에 대한 다양한 커뮤니티와 통계를 제공하는 플랫폼.
 
