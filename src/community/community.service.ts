@@ -99,11 +99,10 @@ export class CommunityService {
   }
   async viewCount(_id: string) {
     try {
-      const result = await this.communityModel.findByIdAndUpdate(_id, {
+      await this.communityModel.findByIdAndUpdate(_id, {
         $inc: { view: 1 },
       });
-
-      return { result, boardId: _id };
+      return { boardId: _id };
     } catch (e) {
       throw new HttpException(
         '조회수 카운팅 실패했습니다',
