@@ -10,7 +10,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
+*.sh
 # OS
 .DS_Store
 
@@ -36,4 +36,3 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
-.sh
