@@ -267,15 +267,15 @@ export class WantedCrawlingService {
     await browser.close();
   }
 
-  @Cron(CronExpression.EVERY_2ND_HOUR)
-  async crawlEveryHour() {
-    await this.crawl();
-  }
+  // @Cron(CronExpression.EVERY_2ND_HOUR)
+  // async crawlEveryHour() {
+  //   await this.crawl();
+  // }
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  async clearCache() {
-    this.CACHED = [];
-  }
+  // @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  // async clearCache() {
+  //   this.CACHED = [];
+  // }
 }
 const pageDown = async (page) => {
   const scrollHeight = 'document.body.scrollHeight';

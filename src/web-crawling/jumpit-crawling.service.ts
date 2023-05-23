@@ -204,13 +204,13 @@ export class JumpitCrawlingService {
     await browser.close();
   }
 
-  @Cron(CronExpression.EVERY_3_HOURS)
-  async crawlEveryHour() {
-    await this.crawl();
-  }
+  // @Cron(CronExpression.EVERY_3_HOURS)
+  // async crawlEveryHour() {
+  //   await this.crawl();
+  // }
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  async clearCache() {
-    this.CACHED = [];
-  }
+  // @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  // async clearCache() {
+  //   this.CACHED = [];
+  // }
 }
