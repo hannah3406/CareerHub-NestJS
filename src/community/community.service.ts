@@ -1,4 +1,10 @@
-import { forwardRef, HttpException, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 
@@ -91,19 +97,20 @@ export class CommunityService {
       throw new HttpException('게시글 업데이트에 실패했습니다', e.statusCode);
     }
   }
-  async viewCount(userId: string, _id: string) {
-    const isReview = await this.userService.findReviewById(userId, _id);
-    if (isReview === null) return;
+  async viewCount(_id: string) {
     try {
       const result = await this.communityModel.findByIdAndUpdate(_id, {
         $inc: { view: 1 },
       });
-      return result;
+
+      return { result, boardId: _id };
     } catch (e) {
-      throw new HttpException('조회수 카운팅 실패했습니다', e.statusCode);
+      throw new HttpException(
+        '조회수 카운팅 실패했습니다',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
-
   async boardLike(
     userId: string,
     boardId: string,

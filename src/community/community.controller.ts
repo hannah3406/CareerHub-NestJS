@@ -31,7 +31,7 @@ export class CommunityController {
   async getList(@Query() query) {
     return this.communityService.getList(query);
   }
-  @UseGuards(JwtAccessGuard)
+  // @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '게시글id로 조회' })
   @Get('/:id')
   async getBoardById(@Param('id') _id: string) {
@@ -45,15 +45,10 @@ export class CommunityController {
     return this.communityService.createBoard(community);
   }
 
-  @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '조회수' })
   @Post('viewCount/:boardId')
-  async viewCount(
-    @Req() req: reqUser,
-    @Param('boardId') boardId: string,
-  ): Promise<any> {
-    const { id } = req.user;
-    return this.communityService.viewCount(id, boardId);
+  async viewCount(@Param('boardId') boardId: string): Promise<any> {
+    return this.communityService.viewCount(boardId);
   }
 
   @UseGuards(JwtAccessGuard)

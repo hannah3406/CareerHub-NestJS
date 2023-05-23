@@ -21,7 +21,7 @@ export class WantedCrawlingService {
   async crawl() {
     const browser = await puppeteer.launch({
       defaultViewport: { width: 1200, height: 900 },
-      headless: true,
+      headless: false,
       waitForInitialPage: true,
       args: [
         '--disable-web-security',
@@ -34,9 +34,9 @@ export class WantedCrawlingService {
 
     // const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.setUserAgent(
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
-    );
+    // await page.setUserAgent(
+    //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+    // );
     // await page.setUserAgent(
     //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
     // );
