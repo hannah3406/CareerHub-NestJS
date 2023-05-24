@@ -43,7 +43,7 @@ export class AuthController {
   ) {
     const user = await this.userRepository.findUserByEmail(data.email);
     const isRefreshEmpty = !user.refreshToken || user.refreshToken === null;
-    return this.authService.login(data, res, isRefreshEmpty);
+    return this.authService.handleLogin(data, res, isRefreshEmpty);
   }
 
   @ApiOperation({ summary: '로그아웃' })

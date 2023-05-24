@@ -67,15 +67,14 @@ export class AuthService {
     await this.userService.setRefreshToken(refresh, payload.email);
 
     res.cookie('Refresh', refresh, {
-      domain: 'careerhub-front.netlify.app/',
+      domain: 'careerhub-front.netlify.app',
       path: '/',
       httpOnly: true,
       sameSite: 'none',
       secure: true,
     });
-    return res;
   }
-  async getAceessToken(payload: { email: string; id: string }) {
+  async getAccessToken(payload: { email: string; id: string }) {
     const token = this.jwtService.sign(payload, {
       secret: jwtConstants.ACCESS_TOKEN,
       expiresIn: jwtConstants.ACCESS_EXPIRESIN,
@@ -83,11 +82,15 @@ export class AuthService {
 
     return token;
   }
-  async login(data: LoginRequestDto, res: Response, isRefreshEmpty: boolean) {
+  async handleLogin(
+    data: LoginRequestDto,
+    res: Response,
+    isRefreshEmpty: boolean,
+  ) {
     const { email } = data;
     const user = await this.userRepository.findUserByEmail(email);
     const payload = { email, id: user._id.toString() };
-    const accessToken = await this.getAceessToken(payload);
+    const accessToken = await this.getAccessToken(payload);
     if (isRefreshEmpty) {
       await this.getRefreshToken(payload, res);
     }
@@ -99,7 +102,7 @@ export class AuthService {
     return this.userRepository.updateRefreshToken(refreshToken, email);
   }
   async refresh(payload: { email: string; id: string }, res: Response) {
-    const accessToken = await this.getAceessToken(payload);
+    const accessToken = await this.getAccessToken(payload);
     await this.getRefreshToken(payload, res);
     return accessToken;
   }
