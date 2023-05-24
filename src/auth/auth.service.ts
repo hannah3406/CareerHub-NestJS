@@ -66,12 +66,14 @@ export class AuthService {
 
     await this.userService.setRefreshToken(refresh, payload.email);
 
-    return res.cookie('Refresh', refresh, {
-      domain: 'https://careerhub-front.netlify.app/',
+    res.cookie('Refresh', refresh, {
+      domain: 'careerhub-front.netlify.app/',
       path: '/',
       httpOnly: true,
       sameSite: 'none',
+      secure: true,
     });
+    return res;
   }
   async getAceessToken(payload: { email: string; id: string }) {
     const token = this.jwtService.sign(payload, {
