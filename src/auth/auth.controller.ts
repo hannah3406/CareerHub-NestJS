@@ -10,7 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
 import { User } from 'src/user/schema/user.schema';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { LogoutRequestDto } from './dto/logout-request.dto copy';
 import { Request, Response } from 'express';
