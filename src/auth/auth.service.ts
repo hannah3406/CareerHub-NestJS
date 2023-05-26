@@ -69,7 +69,7 @@ export class AuthService {
     res.cookie('Refresh', refresh, {
       domain: '.careerhub-front.netlify.app',
       path: '/',
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'none',
       secure: true,
     });
