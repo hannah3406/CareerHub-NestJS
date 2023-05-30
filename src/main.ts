@@ -14,7 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new AllExceptionFilter());
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://careerhub-front.netlify.app'],
+    // origin: ['http://localhost:3000', 'https://careerhub-front.netlify.app'],
+    origin: 'https://careerhub-front.netlify.app',
     credentials: true,
   });
   const config = new BaseAPIDocument().initializeOptions();
