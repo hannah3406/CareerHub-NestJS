@@ -67,9 +67,9 @@ export class AuthService {
     await this.userService.setRefreshToken(refresh, payload.email);
 
     res.cookie('Refresh', refresh, {
-      domain: '.careerhub-front.netlify.app',
+      domain: 'careerhub-front.netlify.app',
       path: '/',
-      httpOnly: false,
+      httpOnly: true,
       sameSite: 'none',
       secure: true,
     });
