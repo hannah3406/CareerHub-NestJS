@@ -15,7 +15,6 @@ import { LoginRequestDto } from './dto/login-request.dto';
 import { LogoutRequestDto } from './dto/logout-request.dto copy';
 import { Request, Response } from 'express';
 import { JwtRefreshGuard } from './guards/refresh.guard';
-import { UserRepository } from 'src/user/user.repository';
 
 export interface reqUser extends Request {
   user: User;
@@ -23,10 +22,7 @@ export interface reqUser extends Request {
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: '회원가입' })
   @Post('create')
@@ -37,13 +33,8 @@ export class AuthController {
   @ApiOperation({ summary: '로그인' })
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @Res({ passthrough: true }) res: Response,
-    @Body() data: LoginRequestDto,
-  ) {
-    const user = await this.userRepository.findUserByEmail(data.email);
-    const isRefreshEmpty = !user.refreshToken || user.refreshToken === null;
-    return this.authService.handleLogin(data, res, isRefreshEmpty);
+  async login(@Body() data: LoginRequestDto) {
+    return this.authService.handleLogin(data);
   }
 
   @ApiOperation({ summary: '로그아웃' })
@@ -52,17 +43,17 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
     @Body() data: LogoutRequestDto,
   ) {
-    res.cookie('Refresh', '', { httpOnly: true });
     return await this.authService.logout(data);
   }
 
   @ApiOperation({ summary: '리프레시토큰' })
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
-  async refresh(@Req() req: reqUser, @Res() res: Response) {
+  async refresh(@Req() req: reqUser) {
     const user = req.user;
     const { email, _id } = user;
-    const payload = { email, id: _id.toString() };
-    return this.authService.refresh(payload, res);
+
+    const payload = { email, _id: _id.toString() };
+    return this.authService.refresh(payload);
   }
 }

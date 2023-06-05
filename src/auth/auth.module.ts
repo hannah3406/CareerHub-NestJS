@@ -6,7 +6,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { UserModule } from 'src/user/user.module';
 import { AccessTokenStrategy } from './strategies/access.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh.strategy';
-import { jwtConstants } from '../constants';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 
@@ -15,8 +14,8 @@ import { AuthController } from './auth.controller';
     ConfigModule.forRoot(),
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.ACCESS_TOKEN,
-      signOptions: { expiresIn: jwtConstants.ACCESS_EXPIRESIN },
+      secret: process.env.ACCESS_TOKEN,
+      signOptions: { expiresIn: process.env.ACCESS_EXPIRESIN },
     }),
     forwardRef(() => UserModule),
   ],

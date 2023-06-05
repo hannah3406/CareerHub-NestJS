@@ -1,11 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserRepository } from 'src/user/user.repository';
 import { UserService } from 'src/user/user.service';
-import { jwtConstants } from '../constants';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { LogoutRequestDto } from './dto/logout-request.dto copy';
 
@@ -58,52 +56,59 @@ export class AuthService {
     }
   }
 
-  async getRefreshToken(payload: { email: string; id: string }, res: Response) {
-    const refresh = this.jwtService.sign(payload, {
-      secret: jwtConstants.REFRESH_TOKEN,
-      expiresIn: jwtConstants.REFRESH_EXPIRESIN,
-    });
-
-    await this.userService.setRefreshToken(refresh, payload.email);
-
-    res.cookie('Refresh', refresh, {
-      domain: '.netlify.app',
-      path: '/',
-      httpOnly: true,
-      // sameSite: 'none',
-      // secure: true,
-    });
-  }
-  async getAccessToken(payload: { email: string; id: string }) {
+  async generateToken(
+    payload: { email: string; _id: string },
+    secret: string,
+    expiresIn: string,
+  ) {
     const token = this.jwtService.sign(payload, {
-      secret: jwtConstants.ACCESS_TOKEN,
-      expiresIn: jwtConstants.ACCESS_EXPIRESIN,
+      secret,
+      expiresIn,
     });
 
     return token;
   }
-  async handleLogin(
-    data: LoginRequestDto,
-    res: Response,
-    isRefreshEmpty: boolean,
-  ) {
+
+  async handleLogin(data: LoginRequestDto) {
     const { email } = data;
     const user = await this.userRepository.findUserByEmail(email);
-    const payload = { email, id: user._id.toString() };
-    const accessToken = await this.getAccessToken(payload);
+    const payload = { email, _id: user._id.toString() };
+    const accessToken = await this.generateToken(
+      payload,
+      process.env.ACCESS_TOKEN,
+      process.env.ACCESS_EXPIRESIN,
+    );
+    const isRefreshEmpty = !user.refreshToken || user.refreshToken === null;
+    let refreshToken = user.refreshToken;
+
     if (isRefreshEmpty) {
-      await this.getRefreshToken(payload, res);
+      refreshToken = await this.generateToken(
+        payload,
+        process.env.REFRESH_TOKEN,
+        process.env.REFRESH_EXPIRESIN,
+      );
+      await this.userService.setRefreshToken(refreshToken, payload.email);
     }
-    return { accessToken };
+
+    return { accessToken, refreshToken };
   }
   async logout(data: LogoutRequestDto) {
     const { email } = data;
     const refreshToken = null;
     return this.userRepository.updateRefreshToken(refreshToken, email);
   }
-  async refresh(payload: { email: string; id: string }, res: Response) {
-    const accessToken = await this.getAccessToken(payload);
-    await this.getRefreshToken(payload, res);
-    return accessToken;
+  async refresh(payload: { email: string; _id: string }) {
+    const accessToken = await this.generateToken(
+      payload,
+      process.env.ACCESS_TOKEN,
+      process.env.ACCESS_EXPIRESIN,
+    );
+    const refreshToken = await this.generateToken(
+      payload,
+      process.env.REFRESH_TOKEN,
+      process.env.REFRESH_EXPIRESIN,
+    );
+    await this.userService.setRefreshToken(refreshToken, payload.email);
+    return { accessToken, refreshToken };
   }
 }

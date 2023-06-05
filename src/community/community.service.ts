@@ -12,7 +12,7 @@ import { CommentsService } from 'src/comments/comments.service';
 import { CreateCommentDto } from 'src/comments/dto/create-comment';
 import { commentsDocument } from 'src/comments/schema/comments.schema';
 import { RecommendBoardService } from 'src/recommend-board/recommend-board.service';
-import { UserService } from 'src/user/user.service';
+
 import { CreateBoardDto } from './dto/create-board';
 import { UpdateBoardDto } from './dto/update-board';
 import { Community, communityDocument } from './schema/community.schema';
@@ -28,7 +28,6 @@ export class CommunityService {
     private readonly commentsService: CommentsService,
     @Inject(forwardRef(() => RecommendBoardService))
     private readonly recommendBoardService: RecommendBoardService,
-    private readonly userService: UserService,
   ) {}
 
   async createBoard(boardData: CreateBoardDto) {

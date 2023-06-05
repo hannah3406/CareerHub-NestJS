@@ -20,23 +20,23 @@ export class MypageController {
   @ApiOperation({ summary: '작성한 게시글' })
   @Get('myBoard')
   getMyBoard(@Req() req: reqUser) {
-    const { id } = req.user;
-    return this.communityService.getMyBoard(id);
+    const { _id } = req.user;
+    return this.communityService.getMyBoard(_id);
   }
 
   @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '작성한 댓글' })
   @Get('myComment')
   getMyComment(@Req() req: reqUser) {
-    const { id } = req.user;
-    return this.commentsService.getMyComment(id);
+    const { _id } = req.user;
+    return this.commentsService.getMyComment(_id);
   }
 
   @UseGuards(JwtAccessGuard)
   @ApiOperation({ summary: '최근 본 게시글' })
   @Get('myViewBoard')
   getMyViewBoard(@Req() req: reqUser) {
-    const { id } = req.user;
-    return this.mypageService.getMyViewBoard(id);
+    const { _id } = req.user;
+    return this.mypageService.getMyViewBoard(_id);
   }
 }

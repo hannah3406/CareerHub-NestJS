@@ -3,7 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 import { UserService } from 'src/user/user.service';
-import { jwtConstants } from '../../constants';
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
@@ -17,7 +16,7 @@ export class RefreshTokenStrategy extends PassportStrategy(
           return request?.cookies?.Refresh;
         },
       ]),
-      secretOrKey: jwtConstants.REFRESH_TOKEN,
+      secretOrKey: process.env.REFRESH_TOKEN,
       passReqToCallback: true,
     });
   }

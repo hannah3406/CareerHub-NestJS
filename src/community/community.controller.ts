@@ -59,8 +59,8 @@ export class CommunityController {
     @Req() req: reqUser,
     @Body() boardId: string,
   ): Promise<{ result: UpdateWriteOpResult; isLikeState: boolean }> {
-    const { id } = req.user;
-    return this.communityService.boardLike(id, boardId);
+    const { _id } = req.user;
+    return this.communityService.boardLike(_id, boardId);
   }
 
   @UseGuards(JwtAccessGuard)

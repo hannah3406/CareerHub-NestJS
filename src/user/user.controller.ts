@@ -15,7 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export interface reqUser extends Request {
   user: {
     email: string;
-    id: string;
+    _id: string;
     iat: number;
     exp: number;
   };

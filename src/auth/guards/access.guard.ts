@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { jwtConstants } from 'src/constants';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -22,8 +21,8 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
   }
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    const { authorization } = request.headers;
 
+    const { authorization } = request.headers;
     if (authorization === undefined) {
       throw new HttpException('Token 전송 안됨', HttpStatus.UNAUTHORIZED);
     }
@@ -32,12 +31,10 @@ export class JwtAccessGuard extends AuthGuard('jwt-access') {
     return true;
   }
   validateToken(token: string) {
-    const secretKey = jwtConstants.ACCESS_TOKEN;
+    const secretKey = process.env.ACCESS_TOKEN;
     try {
       const decoded = this.jwtService.verify(token, { secret: secretKey });
-
       this.userService.getByEmail(decoded['email']);
-
       return decoded;
     } catch (e) {
       switch (e.message) {
